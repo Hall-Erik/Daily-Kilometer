@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .forms import CreateRunForm
@@ -26,8 +27,10 @@ def index(request):
         if form.is_valid():
             distance = form.cleaned_data.get('distance')
             units = form.cleaned_data.get('units')
-            print(distance, units)
+            messages.success(request, 'Your run has been saved.')
             return redirect('runs-home')
+        else: 
+            messages.warning(request, 'There was a problem. Please try again.')
     form = CreateRunForm()
     now = timezone.now().strftime('%m/%d/%Y')
     return render(
