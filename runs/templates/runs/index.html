@@ -1,5 +1,5 @@
 {% extends "runs/base.html" %}
-{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
 {% block content %}
   <div class="content-section">
@@ -10,23 +10,23 @@
         <div class="col">
           {{ form.distance.label_tag }}
           <div class="input-group">
-            {{ form.distance }}
+            {{ form.distance|attr:"value:0.0"|attr:"width:500" }}
             {{ form.units }}
           </div>
         </div>
         <div class="col">
           <label for="id_hours">Time:</label>
           <div class="input-group">
-            {{ form.hours }}
-            {{ form.minutes }}
-            {{ form.seconds }}
+            {{ form.hours|attr:"value:00"|add_class:"time-input" }}
+            {{ form.minutes|attr:"value:00"|add_class:"time-input" }}
+            {{ form.seconds|attr:"value:00"|add_class:"time-input" }}
           </div>
         </div>
       </div>
       <div class="form-row">
         <div class="col">
           {{ form.date.label_tag }}
-          {{ form.date }}
+          {{ form.date|attr:"id:datepicker"|attr:"width:200px" }}
         </div>
       </div>
       <div class="form-row">
