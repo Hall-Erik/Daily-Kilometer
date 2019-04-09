@@ -38,8 +38,8 @@
   </div>
   {% for run in runs %}
     <div class="content-section">
-      <h3>{{ run.date }}</h3>
-      <p>{{ run.distance }} mi. - {{ run.time }}</p>
+      <h3>{{ run.date|date:'Y-m-d' }}</h3>
+      <p>{{ run.distance }} mi. - {{ run.hours }}:{{ run.minutes }}:{{ run.seconds }}</p>
     </div>
   {% endfor %}
 {% endblock %}
