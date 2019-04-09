@@ -30,7 +30,7 @@ def index(request):
             messages.success(request, 'Your run has been saved.')
             return redirect('runs-home')
         else: 
-            messages.warning(request, 'There was a problem. Please try again.')
+            messages.error(request, 'There was a problem. Please try again.')
     form = CreateRunForm()
     now = timezone.now().strftime('%m/%d/%Y')
     return render(
