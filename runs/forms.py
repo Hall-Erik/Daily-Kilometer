@@ -33,7 +33,7 @@ class MultiValueDurationField(forms.MultiValueField):
             forms.IntegerField())
         super(MultiValueDurationField, self).__init__(
             fields=fields, require_all_fields=True, *args, **kwargs)
-    
+
     def compress(self, data_list):
         if len(data_list) == 3:
             return timedelta(

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 from django.utils import timezone
 
 
@@ -24,6 +24,7 @@ class Run(models.Model):
         Returns the total duration in seconds.
         """
         return self.seconds + self.minutes*60 + self.hours*3600
+
 
 # class Shoe(models.Model):
 #     name = models.TextField('Gear', max_length=20)
