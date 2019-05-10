@@ -12,15 +12,8 @@ class Run(models.Model):
         max_digits=5, decimal_places=2,
         validators=[MinValueValidator(0.0)])
     units = models.CharField(max_length=2, choices=_unit_choices)
-    hours = models.IntegerField(
-        default=None, blank=True, null=True,
-        validators=[MinValueValidator(0)])
-    minutes = models.IntegerField(
-        default=None, blank=True, null=True,
-        validators=[MinValueValidator(0), MaxValueValidator(59)])
-    seconds = models.IntegerField(
-        default=None, blank=True, null=True,
-        validators=[MinValueValidator(0), MaxValueValidator(59)])
+    duration = models.DurationField(
+        default=None, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

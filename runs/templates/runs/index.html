@@ -14,12 +14,10 @@
             {{ form.units }}
           </div>
         </div>
-        <div class="col">
-          <label for="id_hours">Time:</label>
+        <div class="col-9">
+          <label for="id_duration">Duration:</label>
           <div class="input-group">
-            {{ form.hours|attr:"value:00"|add_class:"time-input" }}
-            {{ form.minutes|attr:"value:00"|add_class:"time-input" }}
-            {{ form.seconds|attr:"value:00"|add_class:"time-input" }}
+            {{ form.duration|add_class:"time-input" }}
           </div>
         </div>
       </div>
@@ -36,10 +34,30 @@
       </div>
     </form>
   </div>
-  {% for run in runs %}
-    <div class="content-section">
-      <h3>{{ run.date|date:'Y-m-d' }}</h3>
-      <p>{{ run.distance }} mi. - {{ run.hours }}:{{ run.minutes }}:{{ run.seconds }}</p>
-    </div>
-  {% endfor %}
+  <div class="content-section">
+    <h1>Runs</h1>
+    {% for run in runs %}
+      <div class="row border-top pt-2">
+        <div class="col">
+          <div class="row">
+            <div class="col-10"><h3>{{ run.date|date:'Y-m-d' }}</h3></div>
+            {% if user.id == run.user_id %}
+              <div class="col">
+                <a class="btn btn-outline-warning" href="#">Edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
+              </div>
+            {% endif %}
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>{{ run.distance }} {{ run.units }}
+                {% if run.duration %}
+                  - {{ run.duration }}</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

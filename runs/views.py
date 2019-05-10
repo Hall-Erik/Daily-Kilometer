@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.views import generic
 from django.utils import timezone
 from .forms import CreateRunForm
 from .models import Run
@@ -14,14 +15,12 @@ def index(request):
                     date=data.get('date'),
                     distance=data.get('distance'),
                     units=data.get('units'),
-                    hours=data.get('hours'),
-                    minutes=data.get('minutes'),
-                    seconds=data.get('seconds'),
+                    duration=data.get('duration'),
                     user=request.user,
                 )
                 run.save()
                 messages.success(request, 'Your run has been saved.')
-                return redirect('runs-home')
+                return redirect('runs:home')
             else: 
                 messages.error(request, 'There was a problem. Please try again.')
         else:
@@ -38,3 +37,9 @@ def index(request):
              'runs': runs
         }
     )
+
+
+class DeleteRunView(generic.DeleteView):
+    model = Run
+    context_object_name = 'run'
+    success_url = '/'
