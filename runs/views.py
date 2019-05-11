@@ -44,3 +44,15 @@ class DeleteRunView(generic.DeleteView):
     model = Run
     context_object_name = 'run'
     success_url = '/'
+
+
+class UpdateRunView(generic.UpdateView):
+    model = Run
+    context_object_name = 'run'
+    form_class = CreateRunForm
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = context['run'].date.strftime('%m/%d/%Y')
+        return context

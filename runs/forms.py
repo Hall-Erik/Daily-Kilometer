@@ -50,7 +50,9 @@ class CreateRunForm(forms.ModelForm):
     distance = forms.DecimalField(min_value=0.0)
     units = forms.ChoiceField(choices=(('mi', 'mi'), ('km', 'km')))
     duration = MultiValueDurationField(required=False)
-    date = forms.DateField(input_formats=_DATE_INPUT_FORMATS)
+    date = forms.DateField(
+        input_formats=_DATE_INPUT_FORMATS,
+        widget=forms.DateInput(format='%m/%d/%Y'))
 
     class Meta:
         model = Run

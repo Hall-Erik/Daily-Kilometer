@@ -1,0 +1,9 @@
+{% extends 'runs/base.html' %}
+
+{% block content %}
+  <div class="content-section">
+    {% with 'Edit Run' as legend %}
+      {% include 'runs/includes/_run_form.html' %}
+    {% endwith %}
+  </div>
+{% endblock %}
