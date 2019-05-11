@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils import timezone
@@ -46,11 +47,12 @@ class DeleteRunView(generic.DeleteView):
     success_url = '/'
 
 
-class UpdateRunView(generic.UpdateView):
+class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
     model = Run
     context_object_name = 'run'
     form_class = CreateRunForm
     success_url = '/'
+    success_message = 'Run updated'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
