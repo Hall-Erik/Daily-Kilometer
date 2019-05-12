@@ -41,10 +41,9 @@ def index(request):
     )
 
 
-class DeleteRunView(generic.DeleteView):
+class DetailRunView(generic.DetailView):
     model = Run
     context_object_name = 'run'
-    success_url = '/'
 
 
 class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
@@ -58,3 +57,9 @@ class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
         context = super().get_context_data(**kwargs)
         context['now'] = context['run'].date.strftime('%m/%d/%Y')
         return context
+
+
+class DeleteRunView(generic.DeleteView):
+    model = Run
+    context_object_name = 'run'
+    success_url = '/'

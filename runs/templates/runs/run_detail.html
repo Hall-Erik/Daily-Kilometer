@@ -1,0 +1,21 @@
+{% extends 'runs/base.html' %}
+
+{% block content %}
+  <div class="content-section">
+    <div class="row">
+      <div class="col-10"><h1>{{ run.date|date:'Y-m-d' }}</h1></div>
+      <div class="col">
+        <a class="btn btn-outline-info" href="{% url 'runs:update' run.id %}">Edit</a>
+        <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">Distance: {{ run.distance }} {{ run.units }}</div>
+    </div>
+    {% if run.duration %}
+      <div class="row">
+        <div class="col">Duration: {{ run.duration }}</div>
+      </div>        
+    {% endif %}
+  </div>
+{% endblock %}
