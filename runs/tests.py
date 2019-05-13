@@ -38,3 +38,34 @@ class RunDetailViewTests(TestCase):
         self.assertContains(response, run.distance)
         self.assertContains(response, run.units)
         self.assertNotContains(response, run.duration)
+
+    def test_anon_user_cannot_update_delete(self):
+        '''
+        Edit and Delete buttons are not available to anonymous
+        users.
+        '''
+        run = Run(distance=3.1, units='km',
+                  user_id=self.user.id, duration=timedelta(minutes=15))
+        run.save()
+        response = self.client.get(
+            reverse('runs:detail', kwargs={'pk': run.id}))
+        update_url = reverse('runs:update', kwargs={'pk': run.id})
+        delete_url = reverse('runs:delete', kwargs={'pk': run.id})
+        self.assertNotContains(response, f'href="{update_url}"')
+        self.assertNotContains(response, f'href="{delete_url}"')
+
+    def test_non_owner_cannot_edit_delete(self):
+        '''
+        Edit and Delete buttons are not available to users that
+        did not create the run.
+        '''
+        User.objects.create_user('steve', 's@s.com', 'blahblah')
+        run = Run(distance=3.1, units='km', user_id=self.user.id)
+        run.save()
+        self.client.login(username='steve', password='blahblah')
+        response = self.client.get(
+            reverse('runs:detail', kwargs={'pk': run.id}))
+        update_url = reverse('runs:update', kwargs={'pk': run.id})
+        delete_url = reverse('runs:delete', kwargs={'pk': run.id})
+        self.assertNotContains(response, f'href="{update_url}"')
+        self.assertNotContains(response, f'href="{delete_url}"')
