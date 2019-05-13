@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'runs-home'
+LOGIN_REDIRECT_URL = 'runs:home'
 LOGIN_URL = 'login'
 
 MESSAGE_TAGS = {

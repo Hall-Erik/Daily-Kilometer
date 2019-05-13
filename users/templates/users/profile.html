@@ -3,5 +3,19 @@
 {% block content %}
   <div class="content-section">
     <h1>{{ user.username }}</h1>
+    <h3>Runs</h3>
+    {% for run in user.run_set.all %}
+      <div class="row">
+        <div class="col">
+          <a href="{% url 'runs:detail' run.id %}">
+            {{ run.date|date:'Y-m-d' }}
+          </a>
+          {{ run.distance }} {{ run.units }}
+          {% if run.duration %}
+            {{ run.duration }}
+          {% endif %}
+        </div>
+      </div>  
+    {% endfor %}
   </div>
 {% endblock %}
