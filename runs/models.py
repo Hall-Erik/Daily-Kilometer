@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.shortcuts import reverse
 from django.utils import timezone
 
 
@@ -15,8 +16,11 @@ class Gear(models.Model):
     date_retired = models.DateField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('runs:gear-detail', kwargs={'pk': self.id})
+
     def __str__(self):
-        return f'{self.name} owned by {self.owner.username}'
+        return self.name
 
 
 class Run(models.Model):

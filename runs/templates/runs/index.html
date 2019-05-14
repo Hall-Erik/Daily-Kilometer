@@ -26,10 +26,21 @@
           </div>
           <div class="row">
             <div class="col">
-              <p>{{ run.distance }} {{ run.units }}
+              {{ run.distance }} {{ run.units }}
                 {% if run.duration %}
-                  - {{ run.duration }}</p>
+                  - {{ run.duration }}
                 {% endif %}
+                
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-1">
+              {% if run.gear %}
+                Gear:
+                <a href="{{ run.gear.get_absolute_url }}">
+                  {{ run.gear }}
+                </a>
+              {% endif %}
             </div>
           </div>
         </div>

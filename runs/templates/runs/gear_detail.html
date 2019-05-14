@@ -1,0 +1,20 @@
+{% extends 'runs/base.html' %}
+
+{% block content %}
+  <div class="content-section">
+    <div class="row">
+      <div class="col d-flex">
+        <div><h1>{{ shoe.name }}</h1></div>
+        {% if user.id == shoe.owner_id %}
+        <div class="ml-auto">
+          <a class="btn btn-outline-info" href="#">Edit</a>
+          <a class="btn btn-outline-danger" href="#">Delete</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">Date Added: {{ shoe.date_added|date:'Y-m-d' }}</div>
+    </div>
+  </div>
+{% endblock %}

@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="col-9">
-      <label for="id_duration">Duration:</label>
+      {{ form.duration.label_tag }}
       <div class="input-group">
         {{ form.duration|add_class:"time-input" }}
       </div>
@@ -25,7 +25,15 @@
   <div class="form-row">
     <div class="col">
       {{ form.date.label_tag }}
-      {{ form.date|attr:"id:datepicker"|attr:"width:200px"|attr:"autocomplete:off" }}
+      <div class="input-group">
+        {{ form.date|attr:"id:datepicker"|attr:"width:200px"|attr:"autocomplete:off" }}
+      </div>
+    </div>
+    <div class="col-9">
+      {{ form.gear.label_tag }}
+      <div class="input-group">
+        {{ form.gear }}
+      </div>
     </div>
   </div>
   <div class="form-row">

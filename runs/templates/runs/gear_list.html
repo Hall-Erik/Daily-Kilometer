@@ -1,0 +1,19 @@
+{% extends 'runs/base.html' %}
+
+{% block content %}
+  <div class="content-section">
+    <h1>
+      Your Gear
+      <a class="btn btn-outline-primary" href="{% url 'runs:gear-create' %}">
+        Add New Gear
+      </a>
+    </h1>
+    {% for shoe in shoes %}
+    <div class="row">
+      <div class="col">
+        <a href="{{ shoe.get_absolute_url }}">{{ shoe.name }}</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

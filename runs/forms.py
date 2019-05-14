@@ -1,5 +1,5 @@
 from django import forms
-from .models import Run
+from .models import Run, Gear
 from datetime import timedelta
 
 
@@ -61,7 +61,27 @@ class CreateRunForm(forms.ModelForm):
             'units',
             'duration',
             'date',
+            'gear',
         ]
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
         super(CreateRunForm, self).__init__(*args, **kwargs)
+        self.fields['gear'].queryset = Gear.objects.filter(
+            owner=user).order_by('-date_added')
+
+
+class CreateGearForm(forms.ModelForm):
+    _DATE_INPUT_FORMATS = ['%m/%d/%Y']
+
+    name = forms.CharField(max_length=30)
+    date_added = forms.DateField(
+        input_formats=_DATE_INPUT_FORMATS,
+        widget=forms.DateInput(format='%m/%d/%Y'))
+
+    class Meta:
+        model = Gear
+        fields = [
+            'name',
+            'date_added',
+        ]
