@@ -24,8 +24,8 @@ class Run(models.Model):
         Returns the total duration in seconds.
         """
         return self.duration.seconds \
-             + self.duration.minutes*60 \
-             + self.duration.hours*3600
+            + self.duration.minutes*60 \
+            + self.duration.hours*3600
 
 
 # class Shoe(models.Model):

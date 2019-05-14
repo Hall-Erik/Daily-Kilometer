@@ -53,11 +53,6 @@ class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
     success_url = '/'
     success_message = 'Run updated'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = context['run'].date.strftime('%m/%d/%Y')
-        return context
-
 
 class DeleteRunView(generic.DeleteView):
     model = Run
