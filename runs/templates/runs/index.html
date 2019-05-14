@@ -10,17 +10,19 @@
       <div class="row border-top pt-2">
         <div class="col">
           <div class="row">
-            <div class="col-10">
-              <a href="{% url 'runs:detail' run.id %}">
-                <h3>{{ run.date|date:'Y-m-d' }}</h3>
-              </a>
-            </div>
-            {% if user.id == run.user_id %}
-              <div class="col">
-                <a class="btn btn-outline-info" href="{% url 'runs:update' run.id %}">Edit</a>
-                <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
+              <div class="col d-flex">
+                <div>
+                  <a href="{% url 'runs:detail' run.id %}">
+                    <h3>{{ run.date|date:'Y-m-d' }}</h3>
+                  </a>
+                </div>
+                {% if user.id == run.user_id %}
+                <div class="ml-auto">
+                  <a class="btn btn-outline-info" href="{% url 'runs:update' run.id %}">Edit</a>
+                  <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
+                </div>
+                {% endif %}
               </div>
-            {% endif %}
           </div>
           <div class="row">
             <div class="col">

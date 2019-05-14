@@ -51,6 +51,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+  {% with request.resolver_match.view_name as view_name %}
+  <script type="text/javascript">
+    $(function() {
+      var view_name = "{{ view_name }}".replace(':', '-');
+      var dropdown_arr = ['profile', 'runs-gear-list'];
+      $("#"+view_name).addClass('active');
+      if(jQuery.inArray(view_name, dropdown_arr) > -1) {
+        $("#user-menu").addClass('active');
+      }
+    })
+  </script>
+  {% endwith %}
+
   {% block scripts %}{% endblock %}
 </body>
 </html>
