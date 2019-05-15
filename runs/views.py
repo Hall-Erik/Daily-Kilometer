@@ -89,3 +89,15 @@ class GearListView(generic.ListView):
 class GearDetailView(generic.DetailView):
     model = Gear
     context_object_name = 'shoe'
+
+
+class GearUpdateView(generic.UpdateView):
+    model = Gear
+    context_object_name = 'shoe'
+    form_class = CreateGearForm
+
+
+class GearDeleteView(generic.DeleteView):
+    model = Gear
+    context_object_name = 'shoe'
+    success_url = '/'

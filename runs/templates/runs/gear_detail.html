@@ -7,8 +7,14 @@
         <div><h1>{{ shoe.name }}</h1></div>
         {% if user.id == shoe.owner_id %}
         <div class="ml-auto">
-          <a class="btn btn-outline-info" href="#">Edit</a>
-          <a class="btn btn-outline-danger" href="#">Delete</a>
+          <a class="btn btn-outline-info" 
+              href="{% url 'runs:gear-update' shoe.id %}">
+            Edit
+          </a>
+          <a class="btn btn-outline-danger"
+              href="{% url 'runs:gear-delete' shoe.id %}">
+            Delete
+          </a>
         </div>
         {% endif %}
       </div>

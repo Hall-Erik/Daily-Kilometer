@@ -12,4 +12,8 @@ urlpatterns = [
     path('gear/new', views.GearCreateView.as_view(), name='gear-create'),
     path('gear/', views.GearListView.as_view(), name='gear-list'),
     path('gear/<int:pk>/', views.GearDetailView.as_view(), name='gear-detail'),
+    path('gear/<int:pk>/edit/',
+         views.GearUpdateView.as_view(), name='gear-update'),
+    path('gear/<int:pk>/delete/',
+         views.GearDeleteView.as_view(), name='gear-delete'),
 ]
