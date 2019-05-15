@@ -1,4 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.views import generic
@@ -47,7 +51,8 @@ class DetailRunView(generic.DetailView):
     context_object_name = 'run'
 
 
-class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
+class UpdateRunView(LoginRequiredMixin, UserPassesTestMixin,
+                    SuccessMessageMixin, generic.UpdateView):
     model = Run
     context_object_name = 'run'
     form_class = CreateRunForm
@@ -58,15 +63,24 @@ class UpdateRunView(SuccessMessageMixin, generic.UpdateView):
         kwargs = super(UpdateRunView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+    
+    def test_func(self):
+        run = Run.objects.get(pk=self.kwargs.get('pk'))
+        return run.user == self.request.user
 
 
-class DeleteRunView(generic.DeleteView):
+class DeleteRunView(LoginRequiredMixin, UserPassesTestMixin,
+                    generic.DeleteView):
     model = Run
     context_object_name = 'run'
     success_url = '/'
 
+    def test_func(self):
+        run = Run.objects.get(pk=self.kwargs.get('pk'))
+        return run.user == self.request.user
 
-class GearCreateView(generic.CreateView):
+
+class GearCreateView(LoginRequiredMixin, generic.CreateView):
     model = Gear
     context_object_name = 'shoe'
     form_class = CreateGearForm
@@ -81,9 +95,12 @@ class GearCreateView(generic.CreateView):
         return super(GearCreateView, self).form_valid(form)
 
 
-class GearListView(generic.ListView):
+class GearListView(LoginRequiredMixin, generic.ListView):
     model = Gear
     context_object_name = 'shoes'
+
+    def get_queryset(self):
+        return self.request.user.gear_set.order_by('-date_added')
 
 
 class GearDetailView(generic.DetailView):
@@ -91,13 +108,23 @@ class GearDetailView(generic.DetailView):
     context_object_name = 'shoe'
 
 
-class GearUpdateView(generic.UpdateView):
+class GearUpdateView(LoginRequiredMixin, UserPassesTestMixin,
+                     generic.UpdateView):
     model = Gear
     context_object_name = 'shoe'
     form_class = CreateGearForm
 
+    def test_func(self):
+        gear = Gear.objects.get(pk=self.kwargs.get('pk'))
+        return gear.owner == self.request.user
 
-class GearDeleteView(generic.DeleteView):
+
+class GearDeleteView(LoginRequiredMixin, UserPassesTestMixin,
+                     generic.DeleteView):
     model = Gear
     context_object_name = 'shoe'
     success_url = '/'
+
+    def test_func(self):
+        gear = Gear.objects.get(pk=self.kwargs.get('pk'))
+        return gear.owner == self.request.user
