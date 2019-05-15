@@ -19,11 +19,11 @@ class Gear(models.Model):
 
     def get_total_miles(self):
         miles = self.run_set.filter(units='mi').aggregate(
-            miles=models.Sum('distance'))['miles']
+            miles=models.Sum('distance'))['miles'] or 0
         kms = self.run_set.filter(units='km').aggregate(
-            kms=models.Sum('distance'))['kms']
-        km_d = D(km=kms)
-        return round(float(miles) + float(km_d.mi), 2)
+            kms=models.Sum('distance'))['kms'] or 0
+        km_mi = D(km=kms).mi
+        return round(float(miles) + float(km_mi), 2)
 
     def get_absolute_url(self):
         return reverse('runs:gear-detail', kwargs={'pk': self.id})
