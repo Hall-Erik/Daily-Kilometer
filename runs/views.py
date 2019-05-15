@@ -63,7 +63,7 @@ class UpdateRunView(LoginRequiredMixin, UserPassesTestMixin,
         kwargs = super(UpdateRunView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
-    
+
     def test_func(self):
         run = Run.objects.get(pk=self.kwargs.get('pk'))
         return run.user == self.request.user
