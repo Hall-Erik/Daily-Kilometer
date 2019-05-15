@@ -16,5 +16,8 @@
     <div class="row">
       <div class="col">Date Added: {{ shoe.date_added|date:'Y-m-d' }}</div>
     </div>
+    <div class="row">
+      <div class="col">Total Distance: {{ shoe.get_total_miles }} mi.</div>
+    </div>
   </div>
 {% endblock %}

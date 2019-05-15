@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.gis.measure import D
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
 from django.utils import timezone
@@ -15,6 +16,14 @@ class Gear(models.Model):
     date_added = models.DateField(default=timezone.now)
     date_retired = models.DateField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_total_miles(self):
+        miles = self.run_set.filter(units='mi').aggregate(
+            miles=models.Sum('distance'))['miles']
+        kms = self.run_set.filter(units='km').aggregate(
+            kms=models.Sum('distance'))['kms']
+        km_d = D(km=kms)
+        return round(float(miles) + float(km_d.mi), 2)
 
     def get_absolute_url(self):
         return reverse('runs:gear-detail', kwargs={'pk': self.id})
