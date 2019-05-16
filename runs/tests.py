@@ -2,9 +2,8 @@ from django.shortcuts import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.utils import timezone
-from datetime import timedelta, date
+from datetime import timedelta
 from .models import Run
-import pytz
 
 
 class RunCreateViewTests(TestCase):
@@ -20,7 +19,7 @@ class RunDetailViewTests(TestCase):
         '''
         Run information should appear on the detail page.
         '''
-        
+
         d = timezone.datetime(
             year=2019, month=5, day=16,
             tzinfo=timezone.pytz.timezone('America/Denver'))
