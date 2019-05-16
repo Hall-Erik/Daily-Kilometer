@@ -1,8 +1,10 @@
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.contrib.auth.models import User
-from datetime import timedelta
+from django.utils import timezone
+from datetime import timedelta, date
 from .models import Run
+import pytz
 
 
 class RunCreateViewTests(TestCase):
@@ -18,12 +20,16 @@ class RunDetailViewTests(TestCase):
         '''
         Run information should appear on the detail page.
         '''
-        run = Run(distance=3.1, units='km',
+        
+        d = timezone.datetime(
+            year=2019, month=5, day=16,
+            tzinfo=timezone.pytz.timezone('America/Denver'))
+        run = Run(distance=3.1, units='km', date=d,
                   user_id=self.user.id, duration=timedelta(minutes=15))
         run.save()
         response = self.client.get(
             reverse('runs:detail', kwargs={'pk': run.id}))
-        # self.assertContains(response, run.date.strftime('%Y-%m-%d'))
+        self.assertContains(response, run.date.strftime('%Y-%m-%d'))
         self.assertContains(response, run.distance)
         self.assertContains(response, run.units)
         self.assertContains(response, run.duration)
@@ -34,11 +40,14 @@ class RunDetailViewTests(TestCase):
         If a duration was not saved for this run, an empty
         duration (e.g. 0:00:00) should not appear.
         '''
-        run = Run(distance=3.1, units='km', user_id=self.user.id)
+        d = timezone.datetime(
+            year=2019, month=5, day=16,
+            tzinfo=timezone.pytz.timezone('America/Denver'))
+        run = Run(distance=3.1, units='km', date=d, user_id=self.user.id)
         run.save()
         response = self.client.get(
             reverse('runs:detail', kwargs={'pk': run.id}))
-        # self.assertContains(response, run.date.strftime('%Y-%m-%d'))
+        self.assertContains(response, run.date.strftime('%Y-%m-%d'))
         self.assertContains(response, run.distance)
         self.assertContains(response, run.units)
         self.assertNotContains(response, run.duration)
