@@ -35,7 +35,7 @@ class Gear(models.Model):
 class Run(models.Model):
     _unit_choices = (('mi', 'mi'), ('km', 'km'))
 
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateField(default=timezone.now)
     distance = models.DecimalField(
         max_digits=5, decimal_places=2,
         validators=[MinValueValidator(0.0)])
@@ -49,11 +49,3 @@ class Run(models.Model):
 
     def __str__(self):
         return f'{self.date}, {self.distance}{self.units}'
-
-    def get_duration_seconds(self):
-        """
-        Returns the total duration in seconds.
-        """
-        return self.duration.seconds \
-            + self.duration.minutes*60 \
-            + self.duration.hours*3600

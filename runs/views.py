@@ -35,7 +35,7 @@ def index(request):
             messages.warning(request, 'You need to log in to save runs.')
             return redirect('login')
     runs = Run.objects.order_by('-date')
-    form = CreateRunForm(user=request.user)
+    form = CreateRunForm(user=None)
     now = timezone.now().strftime('%m/%d/%Y')
     return render(
         request, 'runs/index.html',

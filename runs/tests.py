@@ -3,11 +3,63 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
-from .models import Run
+from .models import Run, Gear
+from .forms import CreateRunForm, CreateGearForm
 
 
 class RunCreateViewTests(TestCase):
-    pass  # gotta tinker with the view a bit first.
+    def setUp(self):
+        other = User.objects.create_user('other', None, '1234')
+        gear = other.gear_set.create(name='Noke')
+        other.run_set.create(
+            distance=5, units='km', gear=gear,
+            duration=timedelta(minutes=18))
+        self.user = User.objects.create_user('test', None, '1234')
+
+    def test_other_users_runs_appear_on_index(self):
+        '''
+        Runs appear on the index page.
+        '''
+        respone = self.client.get('/')
+        run = Run.objects.first()
+        self.assertEqual(respone.context['runs'][0], run)
+        self.assertContains(respone, run.distance)
+        self.assertContains(respone, run.units)
+        self.assertContains(respone, run.gear.name)
+
+    def test_must_be_logged_in_to_post(self):
+        '''
+        Must be an authenticated user to save runs.
+        '''
+        response = self.client.post('/', {
+            'distance': 3, 'units': 'mi', 'date': '05/16/2016',
+            'duration_1': 20})
+        self.assertEqual(response.status_code, 302)  # redirect
+        self.assertEqual(Run.objects.count(), 1)
+
+    def test_logged_in_user_can_post(self):
+        '''
+        Logged in user can add runs
+        '''
+        self.client.login(username='test', password='1234')
+        response = self.client.post('/', {
+            'distance': 3, 'units': 'mi', 'date': '05/16/2016',
+            'duration_1': 20}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Your run has been saved.')
+        self.assertEqual(Run.objects.count(), 2)
+
+    def test_form_must_be_valid_to_save(self):
+        '''
+        Can't save a run if the form is invalid.
+        '''
+        self.client.login(username='test', password='1234')
+        response = self.client.post('/', {
+            'distance': 3, 'units': 'mi', 'date': 'Steve',
+            'duration_1': 20}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'There was a problem. Please try again.')
+        self.assertEqual(Run.objects.count(), 1)
 
 
 class RunDetailViewTests(TestCase):
@@ -86,7 +138,8 @@ class RunDetailViewTests(TestCase):
 class RunUpdateViewTests(TestCase):
     def setUp(self):
         user = User.objects.create_user('test', None, 'python123')
-        self.run = user.run_set.create(distance=100, units='mi')
+        self.run = user.run_set.create(
+            distance=100, units='mi', duration=timedelta(minutes=17))
 
     def test_anon_user_redirected(self):
         '''
@@ -165,6 +218,37 @@ class GearCreateViewTests(TestCase):
         self.client.login(username='test', password='python123')
         response = self.client.get(reverse('runs:gear-create'))
         self.assertEqual(response.status_code, 200)
+
+    def test_adds_to_user_gear_set(self):
+        '''
+        Posting valid data to this view adds to the
+        user's gear_set.
+        '''
+        user = User.objects.create_user('test', None, 'python123')
+        self.client.login(username='test', password='python123')
+        gear_before = user.gear_set.count()
+        self.client.post(
+            reverse('runs:gear-create'), {
+                'name': 'Nike', 'date_added': '05/16/2019'})
+        gear_after = user.gear_set.count()
+        self.assertGreater(gear_after, gear_before)
+
+    def test_invalid_data_does_not_add_gear(self):
+        '''
+        Posting invalid data to this view does not add
+        to the user's gear_set.
+        '''
+        user = User.objects.create_user('test', None, 'python123')
+        self.client.login(username='test', password='python123')
+        gear_before = user.gear_set.count()
+        total_gear_before = Gear.objects.count()
+        self.client.post(
+            reverse('runs:gear-create'), {
+                'name': 'Nike', 'date_added': 'Steve'})
+        gear_after = user.gear_set.count()
+        total_gear_after = Gear.objects.count()
+        self.assertEqual(gear_after, gear_before)
+        self.assertEqual(total_gear_after, total_gear_before)
 
 
 class GearListViewTests(TestCase):
@@ -306,3 +390,50 @@ class GearDeleteViewTests(TestCase):
         response = self.client.get(reverse(
             'runs:gear-delete', kwargs={'pk': self.gear.id}))
         self.assertEqual(response.status_code, 200)
+
+
+class CreateRunFormTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user('test', None, '1234')
+
+    def test_form_valid(self):
+        form = CreateRunForm(data={
+            'distance': 5,
+            'units': 'km',
+            'duration': ['', 17, ''],
+            'date': '05/16/2019'
+        }, user=self.user)
+        self.assertTrue(form.is_valid())
+
+    def test_minimum_valid_form(self):
+        form = CreateRunForm(data={
+            'distance': 5,
+            'units': 'km',
+            'date': '05/16/2019'
+        }, user=self.user)
+        self.assertTrue(form.is_valid())
+
+    def test_form_invalid(self):
+        form = CreateRunForm(data={
+            'distance': 'bob',
+            'units': 5,
+            'duration': ['eighty', 17, ''],
+            'date': 'Steve'
+        }, user=self.user)
+        self.assertFalse(form.is_valid())
+
+
+class CreateGearFormTests(TestCase):
+    def test_form_valid(self):
+        form = CreateGearForm(data={
+            'name': 'Noke',
+            'date_added': '05/16/2019'
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_form_invalid(self):
+        form = CreateGearForm(data={
+            'name': '',
+            'date_added': '05/16/2019'
+        })
+        self.assertFalse(form.is_valid())
