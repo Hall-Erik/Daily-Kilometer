@@ -1,52 +1,55 @@
 {% extends "runs/base.html" %}
 
 {% block content %}
+  {% if user.is_authenticated %}
   <div class="content-section">
     {% include 'runs/includes/_run_form.html' %}
   </div>
-  <div class="content-section">
-    <h1>Runs</h1>
-    {% for run in runs %}
-      <div class="row border-top pt-2">
-        <div class="col">
-          <div class="row">
-              <div class="col d-flex">
-                <div>
-                  <a href="{% url 'runs:detail' run.id %}">
-                    <h3>{{ run.date|date:'Y-m-d' }}</h3>
-                  </a>
-                </div>
-                {% if user.id == run.user_id %}
-                <div class="ml-auto">
-                  <a class="btn btn-outline-info" href="{% url 'runs:update' run.id %}">Edit</a>
-                  <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
-                </div>
-                {% endif %}
-              </div>
+  {% else %}
+  <div class="alert alert-secondary" role="alert">
+    <a href="{% url 'register' %}">Sign up</a>
+    or
+    <a href="{% url 'login' %}">log in</a>
+    to start saving runs.
+  </div>
+  {% endif %}
+  {% for run in runs %}
+    <div class="media content-section">
+      <img class="mr-3" src="{{ run.user.profile.gravatar_url }}"
+          alt="User profile image.">
+      <div class="media-body">
+        <h5 class="mt-0 d-flex">
+          {{ run.user.username }}&nbsp;-&nbsp;
+          <a href="{% url 'runs:detail' run.id %}">
+            {{ run.date|date:'Y-m-d' }}
+          </a>
+          {% if user.id == run.user_id %}
+          <div class="ml-auto">
+            <a class="btn btn-outline-info" href="{% url 'runs:update' run.id %}">Edit</a>
+            <a class="btn btn-outline-danger" href="{% url 'runs:delete' run.id %}">Delete</a>
           </div>
-          <div class="row">
-            <div class="col">
+          {% endif %}
+        </h5>
+        <div class="row">
+          <div class="col">
               {{ run.distance }} {{ run.units }}
-                {% if run.duration %}
-                  - {{ run.duration }}
-                {% endif %}
-                
-            </div>
-          </div>
-          <div class="row">
-            <div class="col mb-1">
-              {% if run.gear %}
-                Gear:
-                <a href="{{ run.gear.get_absolute_url }}">
-                  {{ run.gear }}
-                </a>
+              {% if run.duration %}
+                | {{ run.duration }}
               {% endif %}
-            </div>
           </div>
         </div>
+        {% if run.gear %}
+          <div class="row">
+            <div class="col">
+              <a href="{{ run.gear.get_absolute_url }}">
+                {{ run.gear.name }}
+              </a>
+            </div>
+          </div>
+        {% endif %}
       </div>
-    {% endfor %}
-  </div>
+    </div>
+  {% endfor %}
 {% endblock %}
 
 {% block scripts %}
