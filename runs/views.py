@@ -34,7 +34,7 @@ def index(request):
         else:
             messages.warning(request, 'You need to log in to save runs.')
             return redirect('login')
-    runs = Run.objects.order_by('-date')
+    runs = Run.objects.order_by('-date', '-time')
     if request.user.is_authenticated:
         form = CreateRunForm(user=request.user)
     else:

@@ -36,6 +36,7 @@ class Run(models.Model):
     _unit_choices = (('mi', 'mi'), ('km', 'km'))
 
     date = models.DateField(default=timezone.now)
+    time = models.TimeField(default=timezone.now)  # for better sotring
     distance = models.DecimalField(
         max_digits=5, decimal_places=2,
         validators=[MinValueValidator(0.0)])
