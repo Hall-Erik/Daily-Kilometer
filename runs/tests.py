@@ -8,6 +8,9 @@ from .forms import CreateRunForm, CreateGearForm
 
 
 class RunCreateViewTests(TestCase):
+    '''
+    Okay, this is also the Index view.
+    '''
     def setUp(self):
         other = User.objects.create_user('other', None, '1234')
         gear = other.gear_set.create(name='Noke')
@@ -26,6 +29,16 @@ class RunCreateViewTests(TestCase):
         self.assertContains(respone, run.distance)
         self.assertContains(respone, run.units)
         self.assertContains(respone, run.gear.name)
+
+    def test_user_gear_appears_in_form(self):
+        '''
+        A user's gear should appear as an option in the choice field.
+        '''
+        gear = self.user.gear_set.create(name='ASICS')
+        self.client.login(username='test', password='1234')
+        response = self.client.get('/')
+        self.assertContains(
+            response, f'<option value="{gear.id}">{gear.name}</option>')
 
     def test_must_be_logged_in_to_post(self):
         '''
