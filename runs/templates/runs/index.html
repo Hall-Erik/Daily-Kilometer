@@ -56,9 +56,15 @@
 <!-- GIJGO controls -->
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>    
 <script>
+  var today;
+  today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
   $('#datepicker').datepicker({
     uiLibrary: 'bootstrap4',
-    value: '{{ now }}'
+    value: '{{ now }}',
+    modal: true,
+    header: true,
+    footer: true,
+    maxDate: today
   });
 </script>
 {% endblock %}

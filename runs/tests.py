@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
 from .models import Run, Gear
-from .forms import CreateRunForm, CreateGearForm
+from .forms import RunForm, GearForm
 
 
 class RunCreateViewTests(TestCase):
@@ -405,12 +405,12 @@ class GearDeleteViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class CreateRunFormTests(TestCase):
+class RunFormTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('test', None, '1234')
 
     def test_form_valid(self):
-        form = CreateRunForm(data={
+        form = RunForm(data={
             'distance': 5,
             'units': 'km',
             'duration': ['', 17, ''],
@@ -419,7 +419,7 @@ class CreateRunFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_minimum_valid_form(self):
-        form = CreateRunForm(data={
+        form = RunForm(data={
             'distance': 5,
             'units': 'km',
             'date': '05/16/2019'
@@ -427,7 +427,7 @@ class CreateRunFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_form_invalid(self):
-        form = CreateRunForm(data={
+        form = RunForm(data={
             'distance': 'bob',
             'units': 5,
             'duration': ['eighty', 17, ''],
@@ -436,16 +436,16 @@ class CreateRunFormTests(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class CreateGearFormTests(TestCase):
+class GearFormTests(TestCase):
     def test_form_valid(self):
-        form = CreateGearForm(data={
+        form = GearForm(data={
             'name': 'Noke',
             'date_added': '05/16/2019'
         })
         self.assertTrue(form.is_valid())
 
     def test_form_invalid(self):
-        form = CreateGearForm(data={
+        form = GearForm(data={
             'name': '',
             'date_added': '05/16/2019'
         })

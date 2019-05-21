@@ -20,7 +20,7 @@
         <div class="form-row">
           <div class="col">
             {{ form.date_added.label_tag }}
-            {{ form.date_added|attr:"id:datepicker"|attr:"width:200px"|attr:"autocomplete:off" }}
+            {{ form.date_added }}
           </div>
         </div>
         <div class="form-row">
@@ -37,17 +37,29 @@
 
 <!-- GIJGO controls -->
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>    
+<script type="text/javascript">
+  var today;
+  today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+</script>
 {% if now %}
   <script>
     $('#datepicker').datepicker({
       uiLibrary: 'bootstrap4',
-      value: "{{ now }}"
+      value: "{{ now }}",
+      modal: true,
+      header: true,
+      footer: true,
+      maxDate: today
     });
   </script>
 {% else %}
   <script>
     $('#datepicker').datepicker({
-      uiLibrary: 'bootstrap4'
+      uiLibrary: 'bootstrap4',
+      modal: true,
+      header: true,
+      footer: true,
+      maxDate: today
     });
   </script>
 {% endif %}

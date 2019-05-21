@@ -9,9 +9,18 @@ class SplitDurationsWidget(forms.MultiWidget):
     '''
     def __init__(self, attrs={}):
         widgets = (
-            forms.NumberInput(attrs={**attrs, **{'placeholder': 'hh'}}),
-            forms.NumberInput(attrs={**attrs, **{'placeholder': 'mm'}}),
-            forms.NumberInput(attrs={**attrs, **{'placeholder': 'ss'}}))
+            forms.NumberInput(attrs={
+                **attrs, **{
+                    'placeholder': 'hh',
+                    'class': 'form-control time-input'}}),
+            forms.NumberInput(attrs={
+                **attrs, **{
+                    'placeholder': 'mm',
+                    'class': 'form-control time-input'}}),
+            forms.NumberInput(attrs={
+                **attrs, **{
+                    'placeholder': 'ss',
+                    'class': 'form-control time-input'}}))
         super(SplitDurationsWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -44,15 +53,31 @@ class MultiValueDurationField(forms.MultiValueField):
             return timedelta(0)
 
 
-class CreateRunForm(forms.ModelForm):
+class RunForm(forms.ModelForm):
     _DATE_INPUT_FORMATS = ['%m/%d/%Y']
 
-    distance = forms.DecimalField(min_value=0.0)
-    units = forms.ChoiceField(choices=(('mi', 'mi'), ('km', 'km')))
+    distance = forms.DecimalField(
+        min_value=0.0,
+        widget=forms.NumberInput(attrs={
+            'placeholder': '0.0',
+            'class': 'form-control dist-input'}))
+    units = forms.ChoiceField(
+        choices=(('mi', 'mi'), ('km', 'km')),
+        widget=forms.Select(attrs={
+            'class': 'form-control unit-input'}))
     duration = MultiValueDurationField(required=False)
     date = forms.DateField(
         input_formats=_DATE_INPUT_FORMATS,
-        widget=forms.DateInput(format='%m/%d/%Y'))
+        widget=forms.DateInput(
+            format='%m/%d/%Y',
+            attrs={
+                'id': 'datepicker',
+                'autocomplete': 'off',
+                'class': 'form-control date-input'}))
+    gear = forms.ModelChoiceField(
+        None,
+        widget=forms.Select(attrs={'class': 'form-control gear-input'}),
+        required=False)
 
     class Meta:
         model = Run
@@ -66,18 +91,27 @@ class CreateRunForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
-        super(CreateRunForm, self).__init__(*args, **kwargs)
+        super(RunForm, self).__init__(*args, **kwargs)
         self.fields['gear'].queryset = Gear.objects.filter(
             owner=user).order_by('-date_added')
 
 
-class CreateGearForm(forms.ModelForm):
+class GearForm(forms.ModelForm):
     _DATE_INPUT_FORMATS = ['%m/%d/%Y']
 
-    name = forms.CharField(max_length=30)
+    name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control gear-input'
+        }))
     date_added = forms.DateField(
         input_formats=_DATE_INPUT_FORMATS,
-        widget=forms.DateInput(format='%m/%d/%Y'))
+        widget=forms.DateInput(
+            format='%m/%d/%Y',
+            attrs={
+                'id': 'datepicker',
+                'autocomplete': 'off',
+                'class': 'form-control date-input'}))
 
     class Meta:
         model = Gear
