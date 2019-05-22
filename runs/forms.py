@@ -33,6 +33,9 @@ class SplitDurationsWidget(forms.MultiWidget):
 
 
 class MultiValueDurationField(forms.MultiValueField):
+    '''
+    Duration field broken into three inputs: hours, minutes, seconds
+    '''
     widget = SplitDurationsWidget
 
     def __init__(self, *args, **kwargs):
@@ -78,6 +81,10 @@ class RunForm(forms.ModelForm):
         None,
         widget=forms.Select(attrs={'class': 'form-control gear-input'}),
         required=False)
+    description = forms.CharField(
+        max_length=240, required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control'}))
 
     class Meta:
         model = Run
@@ -87,6 +94,7 @@ class RunForm(forms.ModelForm):
             'duration',
             'date',
             'gear',
+            'description',
         ]
 
     def __init__(self, *args, **kwargs):

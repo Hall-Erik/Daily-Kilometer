@@ -57,7 +57,7 @@ class RunCreateViewTests(TestCase):
         self.client.login(username='test', password='1234')
         response = self.client.post('/', {
             'distance': 3, 'units': 'mi', 'date': '05/16/2016',
-            'duration_1': 20}, follow=True)
+            'duration_1': 20, 'description': 'Awesome run!'}, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Your run has been saved.')
         self.assertEqual(Run.objects.count(), 2)
@@ -414,7 +414,8 @@ class RunFormTests(TestCase):
             'distance': 5,
             'units': 'km',
             'duration': ['', 17, ''],
-            'date': '05/16/2019'
+            'date': '05/16/2019',
+            'description': 'Blah blah',
         }, user=self.user)
         self.assertTrue(form.is_valid())
 

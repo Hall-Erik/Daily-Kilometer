@@ -43,6 +43,9 @@ class Run(models.Model):
     units = models.CharField(max_length=2, choices=_unit_choices)
     duration = models.DurationField(
         default=None, blank=True, null=True)
+    description = models.CharField(
+        max_length=240, default=None, blank=True, null=True)
+
     gear = models.ForeignKey(
         Gear, on_delete=models.SET_NULL,
         null=True, blank=True, default=None)
