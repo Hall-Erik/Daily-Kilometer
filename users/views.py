@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from .forms import UserRegisterForm
 
 
@@ -13,12 +14,12 @@ def register(request):
             form.save()
             messages.success(
                 request, 'Your account has been created. Please log in.')
-            return redirect('login')
+            return redirect('users:login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
 
-@login_required
-def profile(request):
-    return render(request, 'users/profile.html')
+def profile(request, pk):
+    owner = get_object_or_404(User, pk=pk)
+    return render(request, 'users/profile.html', {'owner': owner})

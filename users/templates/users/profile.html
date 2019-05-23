@@ -2,9 +2,9 @@
 
 {% block content %}
   <div class="content-section">
-    <h1>{{ user.username }}</h1>
+    <h1>{{ owner.username }}</h1>
     <h3>Runs</h3>
-    {% for run in user.run_set.all %}
+    {% for run in owner.run_set.all %}
       <div class="row">
         <div class="col">
           <a href="{% url 'runs:detail' run.id %}">

@@ -7,9 +7,9 @@
   </div>
   {% else %}
   <div class="alert alert-secondary" role="alert">
-    <a href="{% url 'register' %}">Sign up</a>
+    <a href="{% url 'users:register' %}">Sign up</a>
     or
-    <a href="{% url 'login' %}">log in</a>
+    <a href="{% url 'users:login' %}">log in</a>
     to start saving runs.
   </div>
   {% endif %}
@@ -19,7 +19,10 @@
           alt="User profile image.">
       <div class="media-body">
         <h5 class="mt-0 mb-0 pb-0 d-flex">
-          {{ run.user.username }}&nbsp;-&nbsp;
+          <a href="{% url 'users:profile' run.user.id %}">
+            {{ run.user.username }}
+          </a>
+          &nbsp;-&nbsp;
           <a href="{% url 'runs:detail' run.id %}">
             {{ run.date|date:'Y-m-d' }}
           </a>
