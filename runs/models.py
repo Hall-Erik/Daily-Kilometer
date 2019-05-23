@@ -17,6 +17,9 @@ class Gear(models.Model):
     date_retired = models.DateField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-date_added']
+
     def get_total_miles(self):
         miles = self.run_set.filter(units='mi').aggregate(
             miles=models.Sum('distance'))['miles'] or 0
@@ -50,6 +53,9 @@ class Run(models.Model):
         Gear, on_delete=models.SET_NULL,
         null=True, blank=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-date', '-time']
 
     def __str__(self):
         return f'{self.date}, {self.distance}{self.units}'
