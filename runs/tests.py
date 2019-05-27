@@ -38,7 +38,8 @@ class RunCreateViewTests(TestCase):
         self.client.login(username='test', password='1234')
         response = self.client.get('/')
         self.assertContains(
-            response, f'<option value="{gear.id}">{gear.name}</option>')
+            response,
+            f'<option value="{gear.id}" selected>{gear.name}</option>')
 
     def test_must_be_logged_in_to_post(self):
         '''

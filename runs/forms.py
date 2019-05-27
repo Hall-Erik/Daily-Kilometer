@@ -100,8 +100,10 @@ class RunForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super(RunForm, self).__init__(*args, **kwargs)
-        self.fields['gear'].queryset = Gear.objects.filter(
-            owner=user).order_by('-date_added')
+        gear = Gear.objects.filter(owner=user).order_by('-date_added')
+        self.fields['gear'].queryset = gear
+        if gear:
+            self.fields['gear'].initial = gear.first().id
 
 
 class GearForm(forms.ModelForm):
