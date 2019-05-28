@@ -58,6 +58,12 @@ class MultiValueDurationField(forms.MultiValueField):
 
 class RunForm(forms.ModelForm):
     _DATE_INPUT_FORMATS = ['%m/%d/%Y']
+    _run_choices = (
+        ('', '----------'),
+        ('Road run', 'Road run'),
+        ('Trail run', 'Trail run'),
+        ('Race', 'Race'),
+        ('Treadmill', 'Treadmill'))
 
     distance = forms.DecimalField(
         min_value=0.0,
@@ -85,6 +91,11 @@ class RunForm(forms.ModelForm):
         max_length=240, required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control'}))
+    run_type = forms.ChoiceField(
+        choices=_run_choices,
+        required=False,
+        widget=forms.Select(attrs={
+            'class': 'form-control gear-input'}))
 
     class Meta:
         model = Run
@@ -95,6 +106,7 @@ class RunForm(forms.ModelForm):
             'date',
             'gear',
             'description',
+            'run_type',
         ]
 
     def __init__(self, *args, **kwargs):

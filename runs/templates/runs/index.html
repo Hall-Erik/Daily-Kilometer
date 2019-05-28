@@ -51,6 +51,13 @@
               </div>
             </div>                
           {% endif %}
+          {% if run.run_type %}
+            <div class="row">
+              <div class="col">
+                Type: {{ run.run_type }}
+              </div>
+            </div>
+          {% endif %}
           {% if run.gear %}
             <div class="row">
               <div class="col">

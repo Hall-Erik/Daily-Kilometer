@@ -37,6 +37,11 @@ class Gear(models.Model):
 
 class Run(models.Model):
     _unit_choices = (('mi', 'mi'), ('km', 'km'))
+    _run_choices = (
+        ('Road run', 'Road run'),
+        ('Trail run', 'Trail run'),
+        ('Race', 'Race'),
+        ('Treadmill', 'Treadmill'))
 
     date = models.DateField(default=timezone.now)
     time = models.TimeField(default=timezone.now)  # for better sotring
@@ -48,6 +53,9 @@ class Run(models.Model):
         default=None, blank=True, null=True)
     description = models.CharField(
         max_length=240, default=None, blank=True, null=True)
+    run_type = models.CharField(
+        max_length=10, default=None, blank=True, null=True,
+        choices=_run_choices)
 
     gear = models.ForeignKey(
         Gear, on_delete=models.SET_NULL,
