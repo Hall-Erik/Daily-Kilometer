@@ -6,7 +6,7 @@
     {% include 'runs/includes/_run_form.html' %}
   </div>
   {% else %}
-  <div class="alert alert-secondary" role="alert">
+  <div class="content-section" role="alert">
     <a href="{% url 'users:register' %}">Sign up</a>
     or
     <a href="{% url 'users:login' %}">log in</a>
@@ -30,6 +30,9 @@
         <h5 class="mt-0 mb-0 pb-0 d-flex">          
           <a href="{% url 'runs:detail' run.id %}">
             {{ run.date|date:'Y-m-d' }}
+            {% if run.run_type %}
+              {{ run.run_type }}
+            {% endif %}
           </a>
           {% if user.id == run.user_id %}
           <div class="ml-auto">
@@ -91,6 +94,11 @@
     header: true,
     footer: true,
     maxDate: today
+  });
+  $(document).ready(function() {
+    window.onload = function() {
+      $('#id_distance').focus();
+    };
   });
 </script>
 {% endblock %}

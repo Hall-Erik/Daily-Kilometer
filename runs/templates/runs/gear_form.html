@@ -40,6 +40,12 @@
 <script type="text/javascript">
   var today;
   today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  
+  $(document).ready(function() {
+    window.onload = function() {
+      $('#id_name').focus();
+    };
+  });
 </script>
 {% if now %}
   <script>

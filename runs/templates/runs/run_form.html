@@ -15,5 +15,10 @@
   $('#datepicker').datepicker({
     uiLibrary: 'bootstrap4'
   });
+  $(document).ready(function() {
+    window.onload = function() {
+      $('#id_distance').focus();
+    };
+  });
 </script>
 {% endblock %}
