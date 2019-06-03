@@ -57,7 +57,12 @@
               <div class="col">
                 Time: {{ run.duration }}
               </div>
-            </div>                
+            </div>
+            <div class="row">
+              <div class="col">
+                Pace: {{ run.get_pace }} / {{ run.units }}
+              </div>
+            </div>             
           {% endif %}
           {% if run.run_type %}
             <div class="row">

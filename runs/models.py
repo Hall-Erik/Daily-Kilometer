@@ -4,6 +4,7 @@ from django.contrib.gis.measure import D
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
 from django.utils import timezone
+from datetime import timedelta
 
 
 class Gear(models.Model):
@@ -64,6 +65,11 @@ class Run(models.Model):
 
     class Meta:
         ordering = ['-date', '-time']
+
+    def get_pace(self):
+        pace = self.duration / float(self.distance)
+        pace = pace - timedelta(microseconds=pace.microseconds)
+        return pace
 
     def __str__(self):
         return f'{self.date}, {self.distance}{self.units}'
