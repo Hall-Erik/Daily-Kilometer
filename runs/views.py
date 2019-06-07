@@ -25,6 +25,7 @@ def index(request):
                     user=request.user,
                     gear=data.get('gear'),
                     description=data.get('description'),
+                    run_type=data.get('run_type')
                 )
                 run.save()
                 messages.success(request, 'Your run has been saved.')
