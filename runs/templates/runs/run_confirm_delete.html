@@ -9,9 +9,11 @@
     <div class="row">
       <div class="col">Distance: {{ run.distance }} {{ run.units }}</div>
     </div>
-    <div class="row">
-      <div class="col">Duration: {{ run.duration }}</div>
-    </div>
+    {% if run.duration %}
+      <div class="row">
+        <div class="col">Duration: {{ run.get_duration }}</div>
+      </div>
+    {% endif %}
     
     <form method="post">
       {% csrf_token %}

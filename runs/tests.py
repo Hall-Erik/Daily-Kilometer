@@ -28,7 +28,6 @@ class RunCreateViewTests(TestCase):
         self.assertEqual(respone.context['runs'][0], run)
         self.assertContains(respone, run.distance)
         self.assertContains(respone, run.units)
-        self.assertContains(respone, run.gear.name)
 
     def test_user_gear_appears_in_form(self):
         '''
@@ -97,7 +96,7 @@ class RunDetailViewTests(TestCase):
         self.assertContains(response, run.date.strftime('%Y-%m-%d'))
         self.assertContains(response, run.distance)
         self.assertContains(response, run.units)
-        self.assertContains(response, run.duration)
+        self.assertContains(response, run.get_duration())
 
     def test_run_with_no_duration(self):
         '''

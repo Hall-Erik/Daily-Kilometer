@@ -41,7 +41,7 @@
               </a>
               {{ run.distance }} {{ run.units }}
               {% if run.duration %}
-                {{ run.duration }}
+                {{ run.get_duration }}
               {% endif %}
             </div>
           </div>

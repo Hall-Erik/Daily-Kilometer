@@ -66,9 +66,20 @@ class Run(models.Model):
     class Meta:
         ordering = ['-date', '-time']
 
+    def get_duration(self):
+        if self.duration.seconds // 3600 == 0:
+            minutes = self.duration.seconds // 60
+            seconds = self.duration.seconds - (minutes * 60)
+            return f'{minutes}:{seconds:02}'
+        return self.duration
+
     def get_pace(self):
         pace = self.duration / float(self.distance)
         pace = pace - timedelta(microseconds=pace.microseconds)
+        if pace.seconds // 3600 == 0:
+            minutes = pace.seconds // 60
+            seconds = pace.seconds - (minutes * 60)
+            return f'{minutes}:{seconds:02}'
         return pace
 
     def __str__(self):
