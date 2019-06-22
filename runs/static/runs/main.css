@@ -50,3 +50,16 @@ input[type=number]::-webkit-outer-spin-button {
   outline-width: 0px;
   border-bottom: none;
 }
+
+.list-group-flush .list-group-item:first-child {
+  border-top: 0;
+}
+
+.sidebar-user {
+  text-align:center;
+}
+
+.sidebar-user img {
+  display:block;
+  margin:auto;
+}

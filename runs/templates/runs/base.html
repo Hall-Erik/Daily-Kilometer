@@ -29,19 +29,29 @@
         {% include 'runs/includes/alerts.html' %}
         {% block content %}{% endblock %}
       </div>
-      <!-- <div class="col-md-4">
+      {% if user.is_authenticated %}
+      <div class="col-md-4">
         <div class="content-section">
-          <h3>Sidebar</h3>
-          <p class='text-muted'>Maybe I'll put some stats here in the future.
-            <ul class="list-group">
-              <li class="list-group-item list-group-item-light">Total mi: 500</li>
-              <li class="list-group-item list-group-item-light">Avg Pace: 9:00/mi</li>
-              <li class="list-group-item list-group-item-light">Weekly Distance Avg: 25mi</li>
-              <li class="list-group-item list-group-item-light">etc</li>
-            </ul>
-          </p>
+          <div class="sidebar-user">
+            <img src="{{ user.profile.gravatar_url }}" alt="Profile picture.">
+            <a href="{% url 'users:profile' user.id %}">{{ user.username }}</a>
+          </div>
+          <ul class="list-group list-group-flush text-muted">
+            <li class="list-group-item">
+              Miles this week: {{ user.profile.get_week_miles }}
+            </li>
+            <li class="list-group-item">
+              Total miles: {{ user.profile.get_total_miles }}
+            </li>
+            {% if user.profile.get_latest_shoe_miles %}
+              <li class="list-group-item">
+                Newest shoe miles: {{ user.profile.get_latest_shoe_miles }}
+              </li>
+            {% endif %}
+          </ul>
         </div>
-      </div> -->
+      </div>
+      {% endif %}
     </div>
   </main>
 
