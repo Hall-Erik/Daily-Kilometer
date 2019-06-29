@@ -242,7 +242,10 @@ class GearCreateViewTests(TestCase):
         gear_before = user.gear_set.count()
         self.client.post(
             reverse('runs:gear-create'), {
-                'name': 'Nike', 'date_added': '05/16/2019'})
+                'name': 'Nike',
+                'start_distance': 0.0,
+                'start_units': 'mi',
+                'date_added': '05/16/2019'})
         gear_after = user.gear_set.count()
         self.assertGreater(gear_after, gear_before)
 
@@ -441,6 +444,8 @@ class GearFormTests(TestCase):
     def test_form_valid(self):
         form = GearForm(data={
             'name': 'Noke',
+            'start_distance': 0.0,
+            'start_units': 'km',
             'date_added': '05/16/2019'
         })
         self.assertTrue(form.is_valid())

@@ -13,7 +13,15 @@ class Gear(models.Model):
     I may expand to include other types of gear in
     the future.
     '''
+    _unit_choices = (('mi', 'mi'), ('km', 'km'))
+
     name = models.TextField(max_length=30)
+    start_distance = models.DecimalField(
+        max_digits=5, decimal_places=2,
+        default=0.0, blank=True, null=True,
+        validators=[MinValueValidator(0.0)])
+    start_units = models.CharField(
+        max_length=2, choices=_unit_choices, default='mi')
     date_added = models.DateField(default=timezone.now)
     date_retired = models.DateField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -21,13 +29,19 @@ class Gear(models.Model):
     class Meta:
         ordering = ['-date_added']
 
+    def get_starting_miles(self):
+        if self.start_units == 'km':
+            return round(float(D(km=self.start_distance).mi), 2)
+        return round(float(self.start_distance), 2)
+
     def get_total_miles(self):
         miles = self.run_set.filter(units='mi').aggregate(
             miles=models.Sum('distance'))['miles'] or 0
         kms = self.run_set.filter(units='km').aggregate(
             kms=models.Sum('distance'))['kms'] or 0
         km_mi = D(km=kms).mi
-        return round(float(miles) + float(km_mi), 2)
+        return round(
+            float(miles) + float(km_mi) + self.get_starting_miles(), 2)
 
     def get_absolute_url(self):
         return reverse('runs:gear-detail', kwargs={'pk': self.id})
