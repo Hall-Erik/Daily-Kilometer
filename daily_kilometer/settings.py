@@ -31,11 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'runs.apps.RunsConfig',
-    'widget_tweaks',
-    'crispy_forms',
+INSTALLED_APPS = [    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'widget_tweaks',
+    'crispy_forms',
+
     'allauth',
     'allauth.account',
     'rest_framework',
@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'django_rest_passwordreset',
+
+    'users.apps.UsersConfig',
+    'runs.apps.RunsConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,4 +148,24 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+}
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
+
 SITE_ID = 1
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASS')
+DOMAIN = 'http://localhost:8000'
+
+OLD_PASSWORD_FIELD_ENABLED = True
