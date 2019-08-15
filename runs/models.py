@@ -22,8 +22,8 @@ class Gear(models.Model):
         validators=[MinValueValidator(0.0)])
     start_units = models.CharField(
         max_length=2, choices=_unit_choices, default='mi')
-    date_added = models.DateField(default=timezone.now)
-    date_retired = models.DateField(null=True, blank=True, default=None)
+    date_added = models.DateTimeField(default=timezone.now)
+    date_retired = models.DateTimeField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
