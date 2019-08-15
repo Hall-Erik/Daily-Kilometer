@@ -4,7 +4,7 @@ from rest_auth.views import (
     LogoutView,
     PasswordChangeView)
 from rest_auth.registration.views import RegisterView
-from .views import profile, UserDetailView
+from .views import UserDetailView
 
 
 app_name = 'users'
@@ -19,6 +19,4 @@ urlpatterns = [
     path('password/reset/',
          include('django_rest_passwordreset.urls',
                  namespace='password_reset')),
-
-    path('profile/<int:pk>/', profile, name='profile'),
 ]
