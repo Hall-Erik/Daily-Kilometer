@@ -1,88 +1,24 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin,
 )
-from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils import timezone
-from .forms import RunForm, GearForm
+from .forms import GearForm
 from .models import Run, Gear
+from rest_framework.viewsets import ModelViewSet
+from .serializers import RunSerializer
+from .permissions import IsOwnerCanPostOrReadOnly
 
 
-def index(request):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            form = RunForm(request.POST, user=request.user)
-            if form.is_valid():
-                data = form.cleaned_data
-                run = Run(
-                    date=data.get('date'),
-                    distance=data.get('distance'),
-                    units=data.get('units'),
-                    duration=data.get('duration'),
-                    user=request.user,
-                    gear=data.get('gear'),
-                    description=data.get('description'),
-                    run_type=data.get('run_type')
-                )
-                run.save()
-                messages.success(request, 'Your run has been saved.')
-                return redirect('runs:home')
-            else:
-                messages.error(
-                    request, 'There was a problem. Please try again.')
-        else:
-            messages.warning(request, 'You need to log in to save runs.')
-            return redirect('users:login')
-    runs = Run.objects.order_by('-date', '-time')
-    if request.user.is_authenticated:
-        form = RunForm(user=request.user)
-    else:
-        form = RunForm(user=None)
-    now = timezone.now().strftime('%m/%d/%Y')
-    return render(
-        request, 'runs/index.html',
-        {
-            'form': form,
-            'now': now,
-            'runs': runs}
-    )
+class RunViewSet(ModelViewSet):
+    queryset = Run.objects.all()
+    serializer_class = RunSerializer
+    permission_classes = (IsOwnerCanPostOrReadOnly,)
+    lookup_field = 'id'
 
-
-class DetailRunView(generic.DetailView):
-    model = Run
-    context_object_name = 'run'
-
-
-class UpdateRunView(LoginRequiredMixin, UserPassesTestMixin,
-                    SuccessMessageMixin, generic.UpdateView):
-    model = Run
-    context_object_name = 'run'
-    form_class = RunForm
-    success_url = '/'
-    success_message = 'Run updated'
-
-    def get_form_kwargs(self):
-        kwargs = super(UpdateRunView, self).get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        return kwargs
-
-    def test_func(self):
-        run = Run.objects.get(pk=self.kwargs.get('pk'))
-        return run.user == self.request.user
-
-
-class DeleteRunView(LoginRequiredMixin, UserPassesTestMixin,
-                    generic.DeleteView):
-    model = Run
-    context_object_name = 'run'
-    success_url = '/'
-
-    def test_func(self):
-        run = Run.objects.get(pk=self.kwargs.get('pk'))
-        return run.user == self.request.user
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class GearCreateView(LoginRequiredMixin, generic.CreateView):

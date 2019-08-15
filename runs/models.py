@@ -60,6 +60,7 @@ class Run(models.Model):
 
     date = models.DateField(default=timezone.now)
     time = models.TimeField(default=timezone.now)  # for better sotring
+    run_date = models.DateTimeField(default=timezone.now)
     distance = models.DecimalField(
         max_digits=5, decimal_places=2,
         validators=[MinValueValidator(0.0)])
