@@ -40,3 +40,15 @@ class UserSerializer(UserDetailsSerializer):
         extra_kwargs = {
             'pk': {'read_only': True},
             'email': {'read_only': True}}
+
+
+class UserOnlySerializer(UserDetailsSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'pk',
+            'username',
+            'email',)
+        extra_kwargs = {
+            'pk': {'read_only': True},
+            'email': {'read_only': True}}

@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from .models import Run, Gear
+from users.serializers import UserOnlySerializer
 
 
 class GearSerializer(serializers.ModelSerializer):
+    user = UserOnlySerializer(read_only=True)
+
     class Meta:
         model = Gear
         fields = (
@@ -11,13 +14,15 @@ class GearSerializer(serializers.ModelSerializer):
             'start_distance',
             'start_units',
             'date_added',
-            'date_retired',)
+            'date_retired',
+            'user',)
         extra_kwargs = {
             'pk': {'read_only': True}}
 
 
 class RunSerializer(serializers.ModelSerializer):
     gear = GearSerializer(read_only=True)
+    user = UserOnlySerializer(read_only=True)
 
     class Meta:
         model = Run
@@ -29,6 +34,7 @@ class RunSerializer(serializers.ModelSerializer):
             'duration',
             'description',
             'run_type',
-            'gear',)
+            'gear',
+            'user',)
         extra_kwargs = {
             'pk': {'read_only': True}}
