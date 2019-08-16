@@ -52,7 +52,7 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate(['login']);
         //alert service here
-      })
+      });
   }
 }
 

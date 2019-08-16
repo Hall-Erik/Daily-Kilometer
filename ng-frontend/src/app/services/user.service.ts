@@ -14,8 +14,8 @@ export class UserService {
   private LOGIN_URL = '/api/auth/login/';
   private RESET_REQUEST_URL = '/api/auth/password/reset/';
   private VALIDATE_TOKEN_URL = '/api/auth/password/reset/validate_token/';
-  private RESET_PWD_URL = '/api/password/auth/reset/confirm/';
-  private CHANGE_PWD_URL = '/api/password/auth/change/';
+  private RESET_PWD_URL = '/api/auth/password/reset/confirm/';
+  private CHANGE_PWD_URL = '/api/auth/password/change/';
   private LOGOUT_URL = '/api/auth/logout/';
   
   logged_in = false;
@@ -56,18 +56,29 @@ export class UserService {
   }
 
   public request_reset(email: string): Observable<any> {
-    return of(true);
+    return this.http.post(this.RESET_REQUEST_URL, {
+      email: email
+    });
   }
 
   public validate_token(token: string): Observable<any> {
-    return of(true);
+    return this.http.post(this.VALIDATE_TOKEN_URL, {
+      token: token
+    });
   }
 
   public reset_password(token: string, password: string): Observable<any> {
-    return of(true);
+    return this.http.post(this.RESET_PWD_URL, {
+      token: token,
+      password: password
+    });
   }
 
   public change_password(old_password: string, new_password1: string, new_password2: string): Observable<any> {
-    return of(true);
+    return this.http.post(this.CHANGE_PWD_URL, {
+      old_password: old_password,
+      new_password1: new_password1,
+      new_password2: new_password2
+    });
   }
 }
