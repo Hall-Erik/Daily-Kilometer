@@ -14,11 +14,13 @@ import { UserService } from './services/user.service';
 import { RunService } from './services/run.service';
 
 import { ApiInterceptor } from './services/api.interceptor';
+import { LoginComponent } from './users/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
