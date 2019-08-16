@@ -28,7 +28,7 @@ export class LoginComponent {
   login() {
     this.userService.login(this.username.value, this.password.value)
       .subscribe(() => {
-
+        this.router.navigate(['']);
       }, () => {
         
       });
