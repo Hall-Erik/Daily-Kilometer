@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-nav fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-nav">
   <div class="container">
     <a class="navbar-brand mr-4" href="#">Daily km</a>
     <button class="navbar-toggler" type="button" 
@@ -11,42 +11,32 @@
       <!-- navbar left side -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a id='runs-home' class="nav-link" href="#">
-            Home
-          </a>
+          <a id='runs-home' class="nav-link" href="#">Home</a>
         </li>
       </ul>
       <!-- navbar right side -->
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
+        <li *ngIf="user" class="nav-item dropdown">
           <a id="user-menu" class="nav-link dropdown-toggle" href="#"
               role="button" id="userDropdownBtn" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-            username
+            {{user.username}}
           </a>
           <div class="dropdown-menu dropdown-menu-right"
               aria-labelledby="userDropdownBtn">
             <a id="profile" class="dropdown-item"
-                href="#">
-              Profile
-            </a>
+                href="#">Profile</a>
             <a id="runs-gear-list" class="dropdown-item" 
-                href="#">
-              Gear
-            </a>
+                href="#">Gear</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a id="register" class="nav-link" href="#">
-            Register
-          </a>
+        <li *ngIf="!user" class="nav-item">
+          <a id="register" class="nav-link" href="#">Register</a>
         </li>
-        <li class="nav-item">
-          <a id="login" class="nav-link" href="#">
-            Login
-          </a>
+        <li *ngIf="!user" class="nav-item">
+          <a id="login" class="nav-link" routerLink="/login">Login</a>
         </li>
       </ul>
     </div>
