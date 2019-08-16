@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-nav">
   <div class="container">
-    <a class="navbar-brand mr-4" href="#">Daily km</a>
+    <a class="navbar-brand mr-4" routerLink="">Daily km</a>
     <button class="navbar-toggler" type="button" 
         data-toggle="collapse" data-target="#navbarToggle" 
         aria-controls="navbarToggle" aria-expanded="false" 
@@ -11,7 +11,7 @@
       <!-- navbar left side -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a id='runs-home' class="nav-link" href="#">Home</a>
+          <a id='runs-home' class="nav-link" routerLink="">Home</a>
         </li>
       </ul>
       <!-- navbar right side -->
@@ -25,7 +25,7 @@
           <div class="dropdown-menu dropdown-menu-right"
               aria-labelledby="userDropdownBtn">
             <a id="profile" class="dropdown-item"
-                href="#">Profile</a>
+              routerLink="/account">Profile</a>
             <a id="runs-gear-list" class="dropdown-item" 
                 href="#">Gear</a>
             <div class="dropdown-divider"></div>
@@ -33,7 +33,7 @@
           </div>
         </li>
         <li *ngIf="!user" class="nav-item">
-          <a id="register" class="nav-link" href="#">Register</a>
+          <a id="register" class="nav-link" routerLink="/register">Register</a>
         </li>
         <li *ngIf="!user" class="nav-item">
           <a id="login" class="nav-link" routerLink="/login">Login</a>
