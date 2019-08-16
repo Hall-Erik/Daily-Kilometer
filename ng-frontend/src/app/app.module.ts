@@ -15,12 +15,24 @@ import { RunService } from './services/run.service';
 
 import { ApiInterceptor } from './services/api.interceptor';
 import { LoginComponent } from './users/login/login.component';
+import { RunListComponent } from './runs/run-list/run-list.component';
+import { RegisterComponent } from './users/register/register.component';
+import { AccountComponent } from './users/account/account.component';
+import { ForgotPasswordComponent } from './users/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    RunListComponent,
+    RegisterComponent,
+    AccountComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
