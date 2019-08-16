@@ -16,3 +16,7 @@ body {
     border-radius: 8px;
     margin-bottom: 20px;
 }
+
+.form-errors {
+    color: red;
+}

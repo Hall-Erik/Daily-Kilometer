@@ -37,4 +37,16 @@ export class UserService {
   public request_reset(email: string): Observable<any> {
     return of(true);
   }
+
+  public validate_token(token: string): Observable<any> {
+    return of(true);
+  }
+
+  public reset_password(token: string, password: string): Observable<any> {
+    return of(true);
+  }
+
+  public change_password(old_password: string, new_password1: string, new_password2: string): Observable<any> {
+    return of(true);
+  }
 }
