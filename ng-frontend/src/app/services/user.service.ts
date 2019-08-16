@@ -15,7 +15,7 @@ export class UserService {
 
   get user() { return this._user; }
 
-  public register(): Observable<any> {
+  public register(username: string, email: string, password1: string, password2: string): Observable<any> {
     return of(true);
   }
 
