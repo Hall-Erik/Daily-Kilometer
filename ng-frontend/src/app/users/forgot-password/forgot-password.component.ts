@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
+  sent: boolean = false;
+  emailForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]]
+  });
+  
+  get email() { return this.emailForm.get('email'); }
 
-  constructor() { }
+  constructor(private userService: UserService,
+              private fb: FormBuilder) { }
 
-  ngOnInit() {
+  send_request() {
+    this.userService.request_reset(this.email.value)
+      .subscribe(() => {
+        this.sent = true;
+      });
   }
-
 }

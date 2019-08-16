@@ -33,4 +33,8 @@ export class UserService {
     this._user.next(new User({username: 'test', email: 'test@test.com'}));
     return this._user;
   }
+
+  public request_reset(email: string): Observable<any> {
+    return of(true);
+  }
 }
