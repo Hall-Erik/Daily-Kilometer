@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    background: #fafafa;
-    color: #333333;
-    margin-top: 5rem;
+    background: #fafafa !important;
+    color: #333333 !important;
 }
     
 .bg-nav {

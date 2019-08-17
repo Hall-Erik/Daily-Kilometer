@@ -21,6 +21,7 @@ import { AccountComponent } from './users/account/account.component';
 import { ForgotPasswordComponent } from './users/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 import { AlertComponent } from './alert/alert.component';
+import { RunPillComponent } from './runs/run-pill/run-pill.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AlertComponent } from './alert/alert.component';
     AccountComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    AlertComponent
+    AlertComponent,
+    RunPillComponent
   ],
   imports: [
     BrowserModule,

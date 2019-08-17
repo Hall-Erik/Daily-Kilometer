@@ -23,6 +23,8 @@ class GearSerializer(serializers.ModelSerializer):
 class RunSerializer(serializers.ModelSerializer):
     gear = GearSerializer(read_only=True)
     user = UserOnlySerializer(read_only=True)
+    get_duration = serializers.CharField(read_only=True)
+    get_pace = serializers.CharField(read_only=True)
 
     class Meta:
         model = Run
@@ -32,6 +34,8 @@ class RunSerializer(serializers.ModelSerializer):
             'distance',
             'units',
             'duration',
+            'get_duration',
+            'get_pace',
             'description',
             'run_type',
             'gear',

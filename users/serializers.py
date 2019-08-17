@@ -43,12 +43,16 @@ class UserSerializer(UserDetailsSerializer):
 
 
 class UserOnlySerializer(UserDetailsSerializer):
+    gravatar_url = serializers.CharField(
+        source='profile.gravatar_url', read_only=True)
+
     class Meta:
         model = User
         fields = (
             'pk',
             'username',
-            'email',)
+            'email',
+            'gravatar_url',)
         extra_kwargs = {
             'pk': {'read_only': True},
             'email': {'read_only': True}}

@@ -1,0 +1,7 @@
+.table-sm td {
+    padding: 0;
+}
+  
+.table-borderless td {
+    border: none;
+}

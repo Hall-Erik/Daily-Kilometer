@@ -82,13 +82,15 @@ class Run(models.Model):
         ordering = ['-date', '-time']
 
     def get_duration(self):
-        if self.duration.seconds // 3600 == 0:
+        if self.duration is not None and self.duration.seconds // 3600 == 0:
             minutes = self.duration.seconds // 60
             seconds = self.duration.seconds - (minutes * 60)
             return f'{minutes}:{seconds:02}'
         return self.duration
 
     def get_pace(self):
+        if self.duration is None:
+            return None
         pace = self.duration / float(self.distance)
         pace = pace - timedelta(microseconds=pace.microseconds)
         if pace.seconds // 3600 == 0:

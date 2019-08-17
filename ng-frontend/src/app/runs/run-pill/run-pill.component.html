@@ -1,0 +1,39 @@
+<div class="col-sm-8 offset-sm-2 media content-section">
+  <div class="mr-3">
+    <img class="align-self-start" src="{{run.user.gravatar_url}}" alt="profile image.">
+    <br>
+    {{run.user.username}}
+  </div>
+  <div class="media-body">
+    <h5 class="mt-0 mb-0 pb-0 d-flex">
+      <a href="#">
+        {{run.run_date | date }}
+      </a>
+      <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">
+        <a class="btn btn-outline-info" href="#">Edit</a>
+        <a class="btn btn-outline-danger" href="#">Delete</a>
+      </div>
+    </h5>
+    <table style="width:70%" class="table table-sm table-borderless">
+      <tbody>
+        <tr>
+          <td>
+            <small>Distance</small>
+            <div>{{run.distance}} {{run.units}}</div>
+          </td>
+          <td *ngIf="run.duration">
+            <small>Time</small>
+            <div>{{run.get_duration}}</div>
+          </td>
+          <td *ngIf="run.duration">
+            <small>Pace</small>
+            <div>{{run.get_pace}}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row" *ngIf="run.description">
+      <div class="col">{{run.description}}</div>
+    </div>
+  </div>
+</div>
