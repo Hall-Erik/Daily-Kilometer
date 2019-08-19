@@ -22,6 +22,10 @@ import { ForgotPasswordComponent } from './users/forgot-password/forgot-password
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 import { AlertComponent } from './alert/alert.component';
 import { RunPillComponent } from './runs/run-pill/run-pill.component';
+import { RunCreateComponent } from './runs/run-create/run-create.component';
+import { RunEditComponent } from './runs/run-edit/run-edit.component';
+import { RunFormComponent } from './runs/run-form/run-form.component';
+import { RunDetailComponent } from './runs/run-detail/run-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { RunPillComponent } from './runs/run-pill/run-pill.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     AlertComponent,
-    RunPillComponent
+    RunPillComponent,
+    RunCreateComponent,
+    RunEditComponent,
+    RunFormComponent,
+    RunDetailComponent
   ],
   imports: [
     BrowserModule,
