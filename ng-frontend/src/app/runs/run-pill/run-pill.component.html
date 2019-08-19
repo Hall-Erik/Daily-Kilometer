@@ -6,7 +6,7 @@
   </div>
   <div class="media-body">
     <h5 class="mt-0 mb-0 pb-0 d-flex">
-      <a href="#">
+      <a routerLink="/runs/{{run.pk}}">
         {{run.run_date | date }}
       </a>
       <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">

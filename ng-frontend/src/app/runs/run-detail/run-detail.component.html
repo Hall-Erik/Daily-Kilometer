@@ -1,1 +1,54 @@
-<p>run-detail works!</p>
+<div *ngIf="run" class="content-section col-sm-8 offset-sm-2">
+  <div *ngIf="run" class="media">
+    <div class="mr-2">
+      <a class="no-hover" href="#">
+        <img class="img-thumbnail"
+          [src]="run.user.gravatar_url"
+          alt="User profile image.">
+      </a>
+      <br>
+      <a href="#">
+        {{run.user.username}}
+      </a>
+    </div>
+    <div class="media-body">
+      <h1 class="mt-0 mb-0 pb-0 d-flex">          
+        {{run.run_date | date}}      
+        <div class="ml-auto" *ngIf='user && user.pk == run.user.pk'>
+          <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">Edit</a>
+          <button class="btn btn-outline-danger" (click)="delete()">Delete</button>
+        </div>
+      </h1>
+      <div class="row">
+        <div class="col">
+          Distance: {{run.distance}} {{run.units}}
+        </div>
+      </div>
+      <div class="row" *ngIf="run.duration">
+        <div class="col">
+          Time: {{run.get_duration}}
+        </div>
+      </div>
+      <div class="row" *ngIf="run.duration">
+        <div class="col">
+          Pace: {{run.get_pace}} / {{run.units}}
+        </div>
+      </div>
+      <div class="row" *ngIf="run.run_type">
+        <div class="col">
+          Type: {{run.run_type}}
+        </div>
+      </div>
+      <div class="row" *ngIf="run.gear">
+        <div class="col">
+          Shoe: <a href="#">
+            {{run.gear.name}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="run.description">
+    <div class="col">{{run.description}}</div>
+  </div>
+</div>
