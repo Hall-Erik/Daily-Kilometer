@@ -1,0 +1,28 @@
+.dist-input {
+  max-width: 9ch;
+}
+
+.unit-input {
+  max-width: 8ch;
+}
+
+.time-input {
+  max-width: 8ch;
+}
+
+.date-input {
+  max-width: 21ch;
+}
+
+.gear-input {
+  max-width: 15ch;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button, 
+input[type=date]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+

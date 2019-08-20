@@ -1,3 +1,11 @@
+<div *ngIf="user" class="content-section col-sm-8 offset-sm-2">
+  <legend class="mb-4">Save a run</legend>
+  <app-run-form (runSubmit)="submit($event)"></app-run-form>
+</div>
+<div *ngIf="!user" class="col-sm-8 offset-sm-2 alert alert-secondary">
+  Please <a routerLink="/login">log in</a> to start sharing runs
+</div>
+
 <div *ngFor="let run of runs">
   <app-run-pill [run]="run"></app-run-pill>
 </div>
