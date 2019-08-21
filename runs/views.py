@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from .models import Run, Gear
-from .serializers import RunSerializer, GearSerializer
+from .serializers import RunSerializer, RunCreateSerializer, GearSerializer
 from .permissions import RunPermissions, GearPermissions
 
 
@@ -9,6 +9,11 @@ class RunViewSet(ModelViewSet):
     serializer_class = RunSerializer
     permission_classes = (RunPermissions,)
     lookup_field = 'id'
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return RunCreateSerializer
+        return RunSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

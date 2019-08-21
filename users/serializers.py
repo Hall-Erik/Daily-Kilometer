@@ -2,6 +2,15 @@ from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
 from .models import Profile
 from django.contrib.auth.models import User
+from runs.models import Gear
+
+
+class GearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gear
+        fields = (
+            'pk',
+            'name',)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -28,6 +37,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(UserDetailsSerializer):
+    gear = GearSerializer(source="gear_set", many=True)
+    # gear_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     profile = ProfileSerializer()
 
     class Meta:
@@ -36,7 +47,8 @@ class UserSerializer(UserDetailsSerializer):
             'pk',
             'username',
             'email',
-            'profile',)
+            'profile',
+            'gear',)
         extra_kwargs = {
             'pk': {'read_only': True},
             'email': {'read_only': True}}

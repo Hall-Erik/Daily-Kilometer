@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { Run } from '../../models/run';
+import { User } from '../../models/user';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-run-form',
@@ -9,6 +12,8 @@ import { Run } from '../../models/run';
   styleUrls: ['./run-form.component.css']
 })
 export class RunFormComponent implements OnInit {
+  user: User = this.userService.user.getValue();
+
   @Output() runSubmit = new EventEmitter<Run>();
 
   @Input() set run(initial: Run) {
@@ -48,9 +53,11 @@ export class RunFormComponent implements OnInit {
   get run_type() { return this.runForm.get('run_type'); }
   get description() { return this.runForm.get('description'); }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.user.subscribe(user => this.user = user);
     if (this.date.value === '') {
       let d = new Date();
       let date = '' + d.getDate();
@@ -64,7 +71,28 @@ export class RunFormComponent implements OnInit {
     }
   }
 
+  get_duration(): string {
+    if(this.hours.value === '' && this.minutes.value === ''
+    && this.seconds.value === '') {
+      return null;
+    }
+
+    let hours = (this.hours.value) ? '' + this.hours.value : '0';
+    let minutes = (this.minutes.value) ? '' + this.minutes.value : '00';
+    let seconds = (this.seconds.value) ? '' + this.seconds.value : '00';
+    
+    if(minutes.length < 2) minutes = '0' + minutes;
+    if(seconds.length < 2) seconds = '0' + seconds;
+
+    return [hours, minutes, seconds].join(':');
+  }
+
   onSubmit() {
-    this.runSubmit.emit(new Run(this.runForm.value));
+    let run = new Run(this.runForm.value);
+    run.duration = this.get_duration();
+    delete run['hours'];
+    delete run['minutes'];
+    delete run['seconds'];
+    this.runSubmit.emit(run);
   }
 }

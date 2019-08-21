@@ -1,4 +1,4 @@
-<form [formGroup]="runForm" (ngSubmit)="onSubmit()">
+<form *ngIf="user" [formGroup]="runForm" (ngSubmit)="onSubmit()">
   <div class="form-row">
     <div class="col-lg col-sm-6 col-xs-12">
       <label for="distance">Distance</label>
@@ -68,9 +68,12 @@
     <div class="col-lg col-sm-6 col-xs-6">
       <label for="gear">Gear</label>
       <div class="input-group">
-        <input type="text" class="form-control gear-input"
+        <select class="form-control gear-input"
         formControlName="gear"
         [ngClass]="{'is-invalid': gear.invalid && gear.touched}">
+          <option value="">----------</option>
+          <option *ngFor="let g of user.gear" value="{{g.pk}}">{{g.name}}</option>
+        </select>
       </div>
     </div>
 
@@ -103,7 +106,7 @@
 
   <div class="form-row">
     <div class="col mt-2">
-      <button class="btn btn-outline-primary" type="submit">Save</button>
+      <button [disabled]="!runForm.valid" class="btn btn-outline-primary" type="submit">Save</button>
     </div>
   </div>
 </form>

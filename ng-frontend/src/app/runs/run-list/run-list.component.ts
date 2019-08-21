@@ -23,8 +23,8 @@ export class RunListComponent implements OnInit {
   }
 
   submit(run: Run) {
-    console.log('submit');
-    console.log(run);
-    // TODO: send to server
+    this.runService.create_run(run).subscribe((resp) => {
+      this.runService.get_runs().subscribe(runs => this.runs = runs);
+    });
   }
 }
