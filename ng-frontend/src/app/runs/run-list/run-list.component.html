@@ -7,5 +7,5 @@
 </div>
 
 <div *ngFor="let run of runs">
-  <app-run-pill [run]="run"></app-run-pill>
+  <app-run-pill [run]="run" (runDelete)="delete($event)"></app-run-pill>
 </div>

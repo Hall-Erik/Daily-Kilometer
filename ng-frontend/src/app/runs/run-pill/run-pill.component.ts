@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
@@ -11,6 +11,7 @@ import { Run } from '../../models/run';
 })
 export class RunPillComponent implements OnInit {
   @Input() run: Run;
+  @Output() runDelete = new EventEmitter<Run>();
   user: User;
 
   constructor(private userService: UserService) { }
@@ -20,4 +21,7 @@ export class RunPillComponent implements OnInit {
     this.userService.user.subscribe(user => this.user = user);
   }
 
+  onDelete() {
+    this.runDelete.emit(this.run);
+  }
 }

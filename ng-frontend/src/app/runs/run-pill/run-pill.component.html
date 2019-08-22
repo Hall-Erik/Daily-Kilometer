@@ -11,7 +11,7 @@
       </a>
       <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">
         <a class="btn btn-outline-info" href="#">Edit</a>
-        <a class="btn btn-outline-danger" href="#">Delete</a>
+        <button class="btn btn-outline-danger" (click)="onDelete()">Delete</button>
       </div>
     </h5>
     <table style="width:70%" class="table table-sm table-borderless">

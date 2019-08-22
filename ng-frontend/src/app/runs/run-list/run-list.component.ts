@@ -23,8 +23,16 @@ export class RunListComponent implements OnInit {
   }
 
   submit(run: Run) {
-    this.runService.create_run(run).subscribe((resp) => {
+    this.runService.create_run(run).subscribe(() => {
       this.runService.get_runs().subscribe(runs => this.runs = runs);
     });
+  }
+
+  delete(run: Run) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.runService.delete_run(run.pk).subscribe(() => {
+        this.runService.get_runs().subscribe(runs => this.runs = runs);
+      });
+    }
   }
 }
