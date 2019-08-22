@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { User } from '../../models/user';
 import { Run } from 'src/app/models/run';
@@ -17,6 +17,7 @@ export class RunDetailComponent implements OnInit {
   user: User = this.userService.user.getValue();
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private runService: RunService,
               private userService: UserService) { }
 
@@ -29,6 +30,10 @@ export class RunDetailComponent implements OnInit {
   }
 
   delete() {
-    console.log('Do a delete.');
+    if (confirm('Are you sure you want to delete?')) {
+      this.runService.delete_run(+this.run.pk).subscribe(() => {
+        this.router.navigate(['index']);
+      });
+    }
   }
 }

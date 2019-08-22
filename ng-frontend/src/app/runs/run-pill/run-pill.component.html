@@ -10,7 +10,7 @@
         {{run.run_date | date }}
       </a>
       <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">
-        <a class="btn btn-outline-info" href="#">Edit</a>
+        <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">Edit</a>
         <button class="btn btn-outline-danger" (click)="onDelete()">Delete</button>
       </div>
     </h5>

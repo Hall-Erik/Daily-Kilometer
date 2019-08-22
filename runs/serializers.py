@@ -26,15 +26,25 @@ class RunCreateSerializer(serializers.ModelSerializer):
     get_duration = serializers.CharField(read_only=True)
     get_pace = serializers.CharField(read_only=True)
 
-    def create(self, validated_data):
-        instance = super(RunCreateSerializer, self).create(validated_data)
+    def save_gear(self, user, instance, validated_data):
         gear_id = validated_data.pop('gear_id', None)
-        user = validated_data['user']
         if gear_id:
             gear = user.gear_set.get(id=gear_id)
             if gear:
                 instance.gear = gear
                 instance.save()
+
+    def create(self, validated_data):
+        instance = super(RunCreateSerializer, self).create(validated_data)
+        user = validated_data['user']
+        self.save_gear(user, instance, validated_data)
+        return instance
+
+    def update(self, inst, validated_data):
+        instance = super(
+            RunCreateSerializer, self).update(inst, validated_data)
+        user = instance.user
+        self.save_gear(user, instance, validated_data)
         return instance
 
     class Meta:

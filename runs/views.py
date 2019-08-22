@@ -11,7 +11,7 @@ class RunViewSet(ModelViewSet):
     lookup_field = 'id'
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action in ['create', 'update', 'partial_update']:
             return RunCreateSerializer
         return RunSerializer
 

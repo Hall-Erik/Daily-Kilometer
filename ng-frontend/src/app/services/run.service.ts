@@ -31,6 +31,19 @@ export class RunService {
     return this.http.get<Run>(`/api/runs/${id}/`);
   }
 
+  public update_run(run: Run): Observable<any> {
+    console.warn(`/api/runs/${run.pk}/`);
+    return this.http.patch(`/api/runs/${run.pk}/`, {
+      run_date: run.run_date,
+      distance: run.distance,
+      units: run.units,
+      duration: run.duration,
+      gear_id: (run.gear) ? run.gear : null,
+      run_type: run.run_type,
+      description: run.description
+    });
+  }
+
   public delete_run(id: number): Observable<any> {
     return this.http.delete(`/api/runs/${id}/`);
   }
