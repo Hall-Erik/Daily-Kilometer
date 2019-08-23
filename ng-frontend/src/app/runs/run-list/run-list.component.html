@@ -1,11 +1,19 @@
-<div *ngIf="user" class="content-section col-sm-8 offset-sm-2">
-  <legend class="mb-4">Save a run</legend>
-  <app-run-form (runSubmit)="submit($event)"></app-run-form>
-</div>
-<div *ngIf="!user" class="col-sm-8 offset-sm-2 alert alert-secondary">
-  Please <a routerLink="/login">log in</a> to start sharing runs
-</div>
+<div class="row">
+  <div [ngClass]="{'col-sm-8 ml-3': !mobile, 'col': mobile}">
+    <div *ngIf="user" class="content-section">
+      <legend class="mb-4">Save a run</legend>
+      <app-run-form (runSubmit)="submit($event)"></app-run-form>
+    </div>
+    <div *ngIf="!user" class="alert alert-secondary">
+      Please <a routerLink="/login">log in</a> to start sharing runs
+    </div>
 
-<div *ngFor="let run of runs">
-  <app-run-pill [run]="run" (runDelete)="delete($event)"></app-run-pill>
+    <div *ngFor="let run of runs" class="content-section">
+      <app-run-pill [run]="run"
+      (runDelete)="delete($event)"></app-run-pill>
+    </div>
+  </div>
+  <div *ngIf="!mobile" class="col mr-3">
+    <app-sidebar></app-sidebar>
+  </div>
 </div>

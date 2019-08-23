@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { RunService } from '../../services/run.service';
 import { UserService } from '../../services/user.service';
@@ -11,6 +11,7 @@ import { User } from '../../models/user';
   styleUrls: ['./run-list.component.css']
 })
 export class RunListComponent implements OnInit {
+  mobile: boolean;
   runs: Run[];
   user: User = this.userService.user.getValue();
 
@@ -20,6 +21,12 @@ export class RunListComponent implements OnInit {
   ngOnInit() {
     this.runService.get_runs().subscribe(runs => this.runs = runs);
     this.userService.user.subscribe(user => this.user = user);
+    this.mobile = (window.screen.width === 360) ? true : false;
+  }
+
+  @HostListener('window:resize')
+  onresize() {
+    this.mobile = (window.screen.width === 360) ? true : false;
   }
 
   submit(run: Run) {
