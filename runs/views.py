@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import Run, Gear
+from .models import Run
 from .serializers import RunSerializer, RunCreateSerializer, GearSerializer
 from .permissions import RunPermissions, GearPermissions
 
