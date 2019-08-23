@@ -6,6 +6,8 @@ import { RunListComponent } from './runs/run-list/run-list.component';
 import { RunDetailComponent } from './runs/run-detail/run-detail.component';
 import { RunEditComponent } from './runs/run-edit/run-edit.component';
 
+import { GearListComponent } from './gear/gear-list/gear-list.component';
+
 import { RegisterComponent } from './users/register/register.component';
 import { LoginComponent } from './users/login/login.component';
 import { ForgotPasswordComponent } from './users/forgot-password/forgot-password.component';
@@ -18,6 +20,7 @@ const routes: Routes = [
   {path: 'runs/new', component: RunCreateComponent},
   {path: 'runs/:id', component: RunDetailComponent},
   {path: 'runs/:id/edit', component: RunEditComponent},
+  {path: 'gear', component: GearListComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

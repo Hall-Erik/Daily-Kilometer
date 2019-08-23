@@ -28,6 +28,7 @@ import { RunEditComponent } from './runs/run-edit/run-edit.component';
 import { RunFormComponent } from './runs/run-form/run-form.component';
 import { RunDetailComponent } from './runs/run-detail/run-detail.component';
 import { SidebarComponent } from './users/sidebar/sidebar.component';
+import { GearListComponent } from './gear/gear-list/gear-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { SidebarComponent } from './users/sidebar/sidebar.component';
     RunEditComponent,
     RunFormComponent,
     RunDetailComponent,
-    SidebarComponent
+    SidebarComponent,
+    GearListComponent
   ],
   imports: [
     BrowserModule,

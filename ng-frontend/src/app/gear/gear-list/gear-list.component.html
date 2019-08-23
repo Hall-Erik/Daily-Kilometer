@@ -1,0 +1,30 @@
+<div *ngIf="gear" class="col-sm-8 offset-sm-2 content-section">
+  <h2>Your Running Shoes</h2>
+  <button class="btn btn-outline-success">Add New Shoes</button>
+  
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Added</th>
+        <th scope="col">Miles</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let g of gear">
+        <td>{{g.name}}</td>
+        <td>{{g.date_added}}</td>
+        <td>{{g.total_miles}}</td>
+        <td class="text-right">
+          <a class="btn btn-sm btn-outline-info" href="#">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </a>
+          <button class="btn btn-sm btn-outline-danger">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
