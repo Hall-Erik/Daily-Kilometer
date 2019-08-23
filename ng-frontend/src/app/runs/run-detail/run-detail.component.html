@@ -15,8 +15,12 @@
       <h1 class="mt-0 mb-0 pb-0 d-flex">          
         {{run.run_date | date}}      
         <div class="ml-auto" *ngIf='user && user.pk == run.user.pk'>
-          <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">Edit</a>
-          <button class="btn btn-outline-danger" (click)="delete()">Delete</button>
+          <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </a>
+          <button class="btn btn-outline-danger" (click)="delete()">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
         </div>
       </h1>
       <div class="row">

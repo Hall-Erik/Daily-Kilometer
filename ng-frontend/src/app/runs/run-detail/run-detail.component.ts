@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { User } from '../../models/user';
 import { Run } from 'src/app/models/run';
@@ -13,6 +14,9 @@ import { RunService } from '../../services/run.service';
   styleUrls: ['./run-detail.component.css']
 })
 export class RunDetailComponent implements OnInit {
+  faTrash = faTrash
+  faEdit = faEdit
+  
   run: Run;
   user: User = this.userService.user.getValue();
 

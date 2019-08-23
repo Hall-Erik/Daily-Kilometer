@@ -1,4 +1,4 @@
-<div class="col-sm-8 offset-sm-2 media content-section">
+<div class="media">
   <div class="mr-3">
     <img class="align-self-start" src="{{run.user.gravatar_url}}" alt="profile image.">
     <br>
@@ -10,8 +10,12 @@
         {{run.run_date | date }}
       </a>
       <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">
-        <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">Edit</a>
-        <button class="btn btn-outline-danger" (click)="onDelete()">Delete</button>
+        <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </a>
+        <button type="button" class="btn btn-outline-danger" (click)="onDelete()">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
       </div>
     </h5>
     <table style="width:70%" class="table table-sm table-borderless">

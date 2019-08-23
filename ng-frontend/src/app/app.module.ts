@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -26,6 +27,7 @@ import { RunCreateComponent } from './runs/run-create/run-create.component';
 import { RunEditComponent } from './runs/run-edit/run-edit.component';
 import { RunFormComponent } from './runs/run-form/run-form.component';
 import { RunDetailComponent } from './runs/run-detail/run-detail.component';
+import { SidebarComponent } from './users/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +44,12 @@ import { RunDetailComponent } from './runs/run-detail/run-detail.component';
     RunCreateComponent,
     RunEditComponent,
     RunFormComponent,
-    RunDetailComponent
+    RunDetailComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
