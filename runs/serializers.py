@@ -6,9 +6,11 @@ from users.serializers import UserOnlySerializer
 class GearSerializer(serializers.ModelSerializer):
     user = UserOnlySerializer(read_only=True)
     start_miles = serializers.DecimalField(
-        max_digits=6, decimal_places=2, source='get_starting_miles')
+        max_digits=6, decimal_places=2, source='get_starting_miles',
+        read_only=True)
     total_miles = serializers.DecimalField(
-        max_digits=6, decimal_places=2, source='get_total_miles')
+        max_digits=6, decimal_places=2, source='get_total_miles',
+        read_only=True)
 
     class Meta:
         model = Gear
@@ -16,6 +18,8 @@ class GearSerializer(serializers.ModelSerializer):
             'pk',
             'name',
             'start_miles',
+            'start_distance',
+            'start_units',
             'total_miles',
             'date_added',
             'date_retired',

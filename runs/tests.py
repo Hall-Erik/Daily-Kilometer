@@ -205,8 +205,8 @@ class RunViewSetTests(TestCase):
 
 
 class GearViewSetTests(TestCase):
-    def test_anon_can_list_gear(self):
-        '''Anonymous users can GET a list of gear'''
+    def test_anon_cannot_list_gear(self):
+        '''Anonymous users cannot GET a list of gear'''
         user = create_user()
         create_gear(user)
         create_gear(user, name='ASICS')
@@ -214,14 +214,12 @@ class GearViewSetTests(TestCase):
         # There should be two gear
         self.assertEqual(Gear.objects.count(), 2)
 
-        serializer = GearSerializer(Gear.objects.all(), many=True)
         url = reverse('runs:gear-list')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_can_list_gear(self):
-        '''Logged in users can GET a list of gear'''
+        '''Logged in users can GET a list of their own gear'''
         client = APIClient()
         user = create_user()
         create_gear(user)
@@ -261,28 +259,24 @@ class GearViewSetTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Gear.objects.count(), 1)
 
-    def test_anon_can_get_gear_detail(self):
-        '''Anonymous user can GET a gear detail'''
+    def test_anon_cannot_get_gear_detail(self):
+        '''Anonymous user cannot GET a gear detail'''
         user = create_user()
         gear = create_gear(user)
         url = reverse('runs:gear-detail', kwargs={'id': gear.id})
-        serializer = GearSerializer(gear)
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_user_can_get_gear_detail(self):
-        '''Logged in user can GET a gear detail'''
+    def test_user_cannot_get_gear_detail(self):
+        '''Logged in user cannot GET a gear detail on another user's gear'''
         client = APIClient()
         owner = create_user()
         gear = create_gear(owner)
         user = create_user('user', 'user@user.com')
         url = reverse('runs:gear-detail', kwargs={'id': gear.id})
-        serializer = GearSerializer(gear)
         client.force_authenticate(user=user)
         response = client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_owner_can_get_gear_detail(self):
         '''Gear owner can GET its detail'''
@@ -317,7 +311,7 @@ class GearViewSetTests(TestCase):
         url = reverse('runs:gear-detail', kwargs={'id': gear.id})
         response = client.patch(url, {
             'name': 'ASICS'})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         del gear.name  # force refresh from db
         self.assertEqual(gear.name, 'Nike')
 
@@ -354,7 +348,7 @@ class GearViewSetTests(TestCase):
         url = reverse('runs:gear-detail', kwargs={'id': gear.id})
         self.assertEqual(Gear.objects.count(), 1)
         response = client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(Gear.objects.count(), 1)
 
     def test_owner_can_delete_gear(self):
