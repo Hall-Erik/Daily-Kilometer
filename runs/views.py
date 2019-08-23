@@ -20,10 +20,13 @@ class RunViewSet(ModelViewSet):
 
 
 class GearViewSet(ModelViewSet):
-    queryset = Gear.objects.all()
     serializer_class = GearSerializer
     permission_classes = (GearPermissions,)
     lookup_field = 'id'
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.gear_set.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
