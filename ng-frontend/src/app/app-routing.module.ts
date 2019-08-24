@@ -7,6 +7,8 @@ import { RunDetailComponent } from './runs/run-detail/run-detail.component';
 import { RunEditComponent } from './runs/run-edit/run-edit.component';
 
 import { GearListComponent } from './gear/gear-list/gear-list.component';
+import { GearCreateComponent } from './gear/gear-create/gear-create.component';
+import { GearEditComponent } from './gear/gear-edit/gear-edit.component';
 
 import { RegisterComponent } from './users/register/register.component';
 import { LoginComponent } from './users/login/login.component';
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'runs/:id', component: RunDetailComponent},
   {path: 'runs/:id/edit', component: RunEditComponent},
   {path: 'gear', component: GearListComponent},
+  {path: 'gear/new', component: GearCreateComponent},
+  {path: 'gear/:id/edit', component: GearEditComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},

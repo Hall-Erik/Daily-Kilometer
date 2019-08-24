@@ -29,6 +29,9 @@ import { RunFormComponent } from './runs/run-form/run-form.component';
 import { RunDetailComponent } from './runs/run-detail/run-detail.component';
 import { SidebarComponent } from './users/sidebar/sidebar.component';
 import { GearListComponent } from './gear/gear-list/gear-list.component';
+import { GearCreateComponent } from './gear/gear-create/gear-create.component';
+import { GearEditComponent } from './gear/gear-edit/gear-edit.component';
+import { GearFormComponent } from './gear/gear-form/gear-form.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { GearListComponent } from './gear/gear-list/gear-list.component';
     RunFormComponent,
     RunDetailComponent,
     SidebarComponent,
-    GearListComponent
+    GearListComponent,
+    GearCreateComponent,
+    GearEditComponent,
+    GearFormComponent
   ],
   imports: [
     BrowserModule,
