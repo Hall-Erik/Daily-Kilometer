@@ -58,8 +58,6 @@ class Run(models.Model):
         ('Race', 'Race'),
         ('Treadmill', 'Treadmill'))
 
-    date = models.DateField(default=timezone.now)
-    time = models.TimeField(default=timezone.now)  # for better sotring
     run_date = models.DateTimeField(default=timezone.now)
     distance = models.DecimalField(
         max_digits=5, decimal_places=2,
@@ -79,7 +77,7 @@ class Run(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['-date', '-time']
+        ordering = ['-run_date']
 
     def get_duration(self):
         if self.duration is not None and self.duration.seconds // 3600 == 0:
@@ -100,4 +98,4 @@ class Run(models.Model):
         return pace
 
     def __str__(self):
-        return f'{self.date}, {self.distance}{self.units}'
+        return f'{self.run_date}, {self.distance}{self.units}'

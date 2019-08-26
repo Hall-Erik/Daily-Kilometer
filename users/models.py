@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import hashlib
 import datetime
+from django.utils import timezone
 
 
 class Profile(models.Model):
@@ -25,14 +26,18 @@ class Profile(models.Model):
             return None
 
     def get_week_miles(self):
-        today = datetime.date.today()
-        week_start = today - datetime.timedelta(days=today.weekday())
-        week_end = week_start + datetime.timedelta(days=7)
+        today = timezone.make_aware(timezone.datetime.combine(
+            timezone.now().date(),
+            datetime.time(0, 0)), timezone.get_default_timezone())    
+        week_start = today - timezone.timedelta(days=today.weekday())
+        print('start', today - timezone.timedelta(days=today.weekday()))
+        week_end = week_start + timezone.timedelta(days=7)
+        print('end', week_start + timezone.timedelta(days=7))
         miles = self.user.run_set.filter(
-            units='mi', date__range=[week_start, week_end]).aggregate(
+            units='mi', run_date__range=[week_start, week_end]).aggregate(
                 miles=models.Sum('distance'))['miles'] or 0
         kms = self.user.run_set.filter(
-            units='km', date__range=[week_start, week_end]).aggregate(
+            units='km', run_date__range=[week_start, week_end]).aggregate(
                 kms=models.Sum('distance'))['kms'] or 0
         km_mi = D(km=kms).mi
         return round(float(miles) + float(km_mi), 2)
