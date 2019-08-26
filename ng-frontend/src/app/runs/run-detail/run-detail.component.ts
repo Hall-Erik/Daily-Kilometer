@@ -31,6 +31,7 @@ export class RunDetailComponent implements OnInit {
       this.run = run;
     });
     this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
   }
 
   delete() {

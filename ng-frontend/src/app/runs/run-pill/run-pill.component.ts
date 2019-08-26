@@ -16,13 +16,13 @@ export class RunPillComponent implements OnInit {
   
   @Input() run: Run;
   @Output() runDelete = new EventEmitter<Run>();
-  user: User;
+  user: User = this.userService.user.getValue();
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user = this.userService.user.getValue();
     this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
   }
 
   onDelete() {

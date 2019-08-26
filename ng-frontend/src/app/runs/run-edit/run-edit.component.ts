@@ -23,6 +23,7 @@ export class RunEditComponent implements OnInit {
 
   ngOnInit() {
     this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
     let id = this.route.snapshot.paramMap.get('id');
     this.runService.get_run(+id).subscribe(run => this.run = run);
   }

@@ -32,9 +32,8 @@ export class AccountComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.userService.user.subscribe((user) => {
-      this.user = user
-    });
+    this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
   }
 
   passwords_match(c: AbstractControl) {
