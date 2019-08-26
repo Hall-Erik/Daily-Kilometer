@@ -22,7 +22,6 @@ export class RunPillComponent implements OnInit {
 
   ngOnInit() {
     this.userService.user.subscribe(user => this.user = user);
-    this.userService.get_user().subscribe();
   }
 
   onDelete() {

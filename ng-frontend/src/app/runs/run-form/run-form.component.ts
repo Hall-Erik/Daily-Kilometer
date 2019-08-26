@@ -56,7 +56,6 @@ export class RunFormComponent implements OnInit {
 
   ngOnInit() {
     this.userService.user.subscribe(user => this.user = user);
-    this.userService.get_user().subscribe();
     if (this.date.value === '') {
       this.date.patchValue(this.get_date_string());
     }

@@ -21,7 +21,6 @@ export class RunListComponent implements OnInit {
   ngOnInit() {
     this.runService.get_runs().subscribe(runs => this.runs = runs);
     this.userService.user.subscribe(user => this.user = user);
-    this.userService.get_user().subscribe();
     this.mobile = (window.screen.width === 360) ? true : false;
   }
 
@@ -40,6 +39,7 @@ export class RunListComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.runService.delete_run(run.pk).subscribe(() => {
         this.runService.get_runs().subscribe(runs => this.runs = runs);
+        this.userService.get_user().subscribe();
       });
     }
   }

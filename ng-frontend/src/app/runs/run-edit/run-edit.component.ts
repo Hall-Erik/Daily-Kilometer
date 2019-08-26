@@ -32,6 +32,7 @@ export class RunEditComponent implements OnInit {
     run.pk = this.run.pk;
     this.runService.update_run(run).subscribe(() => {
       this.router.navigate(['index']);
+      this.userService.get_user().subscribe();
     })
   }
 }
