@@ -8,6 +8,8 @@ export class User {
     profile: Profile;
     gear: Gear[];
 
+    gravatar_url: string;
+
     public constructor(init?: Partial<User>) {
         Object.assign(this, init);
     }

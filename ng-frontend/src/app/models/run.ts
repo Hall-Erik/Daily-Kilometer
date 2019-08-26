@@ -12,6 +12,9 @@ export class Run {
     gear: Gear;
     user: User;
 
+    get_duration: number;
+    get_pace: number;
+
     public constructor(init?: Partial<Run>) {
         Object.assign(this, init);
     }
