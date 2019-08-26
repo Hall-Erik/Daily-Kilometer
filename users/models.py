@@ -30,9 +30,7 @@ class Profile(models.Model):
             timezone.now().date(),
             datetime.time(0, 0)), timezone.get_default_timezone())    
         week_start = today - timezone.timedelta(days=today.weekday())
-        print('start', today - timezone.timedelta(days=today.weekday()))
         week_end = week_start + timezone.timedelta(days=7)
-        print('end', week_start + timezone.timedelta(days=7))
         miles = self.user.run_set.filter(
             units='mi', run_date__range=[week_start, week_end]).aggregate(
                 miles=models.Sum('distance'))['miles'] or 0
