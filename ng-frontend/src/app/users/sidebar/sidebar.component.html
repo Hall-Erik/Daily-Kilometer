@@ -10,7 +10,7 @@
       Total miles: {{user.profile.total_miles}}
     </li>
     <li *ngIf="user.profile.latest_shoe_miles" class="list-group-item">
-      Newest shoe miles: {{user.profile.latest_shoe_miles}}
+      {{user.gear[0].name}} miles: {{user.profile.latest_shoe_miles}}
     </li>
   </ul>
 </div>
