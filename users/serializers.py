@@ -37,7 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(UserDetailsSerializer):
-    gear = GearSerializer(source="gear_set", many=True)
+    gear = GearSerializer(source="profile.get_active_shoes", many=True)
     # gear_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     profile = ProfileSerializer()
 

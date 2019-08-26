@@ -72,8 +72,10 @@ export class GearFormComponent implements OnInit {
     if(this.date_added.value) {
       gear.date_added = this.date_added.value + 'T00:00:00';
     }
-    if(this.date_retired.value) {
+    if(this.date_retired.value != '') {
       gear.date_retired = this.date_retired.value + 'T00:00:00';
+    } else {
+      gear.date_retired = null;
     }
     this.gearSubmit.emit(gear);
   }

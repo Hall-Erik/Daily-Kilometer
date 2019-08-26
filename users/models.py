@@ -12,6 +12,10 @@ class Profile(models.Model):
     location = models.CharField(
         max_length=30, blank=True, null=True, default=None)
 
+    def get_active_shoes(self):
+        return self.user.gear_set.filter(date_retired=None).order_by(
+            '-date_added')
+
     def get_latest_shoe_miles(self):
         shoe = self.user.gear_set.filter(date_retired=None).order_by(
             '-date_added').first()
