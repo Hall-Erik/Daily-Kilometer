@@ -43,15 +43,6 @@ export class RunFormComponent implements OnInit {
 
   get distance() { return this.runForm.get('distance'); }
   get units() { return this.runForm.get('units'); }
-  get duration() {
-    let hours = this.runForm.get('hours');
-    let minutes = this.runForm.get('minutes');
-    let seconds = this.runForm.get('seconds');
-    if(!hours && !minutes && !seconds) {
-      return null;
-    }
-    return null;
-  }
   get hours() { return this.runForm.get('hours'); }
   get minutes() { return this.runForm.get('minutes'); }
   get seconds() { return this.runForm.get('seconds'); }

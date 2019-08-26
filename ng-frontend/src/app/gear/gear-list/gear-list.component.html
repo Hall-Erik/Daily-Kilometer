@@ -1,6 +1,6 @@
 <div *ngIf="gear" class="col-sm-8 offset-sm-2 content-section">
   <h2>Your Running Shoes</h2>
-  <button class="btn btn-outline-success">Add New Shoes</button>
+  <button class="btn btn-outline-success" routerLink="/gear/new">Add New Shoes</button>
   
   <table class="table table-striped mt-3">
     <thead>
@@ -12,15 +12,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let g of gear">
+      <tr *ngFor="let g of gear" [ngClass]="{'text-muted': g.date_retired}">
         <td>{{g.name}}</td>
-        <td>{{g.date_added}}</td>
+        <td>{{g.date_added | date}}</td>
         <td>{{g.total_miles}}</td>
         <td class="text-right">
-          <a class="btn btn-sm btn-outline-info" href="#">
+          <a class="btn btn-sm btn-outline-info" routerLink="/gear/{{g.pk}}/edit">
             <fa-icon [icon]="faEdit"></fa-icon>
           </a>
-          <button class="btn btn-sm btn-outline-danger">
+          <button class="btn btn-sm btn-outline-danger" (click)="delete(g.pk)">
             <fa-icon [icon]="faTrash"></fa-icon>
           </button>
         </td>

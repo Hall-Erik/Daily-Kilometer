@@ -22,4 +22,11 @@ export class GearListComponent implements OnInit {
     this.gearService.get_gear().subscribe(gear => this.gear = gear);
   }
 
+  delete(id: number) {
+    if (confirm('Are you sure you want to delete this shoe?')) {
+      this.gearService.delete_gear(id).subscribe(() => {
+        this.gearService.get_gear().subscribe(gear => this.gear = gear);
+      });
+    }
+  }
 }

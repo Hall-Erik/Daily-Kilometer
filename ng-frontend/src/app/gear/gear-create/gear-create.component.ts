@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { GearService } from '../../services/gear.service';
+
+import { Gear } from '../../models/gear';
 
 @Component({
   selector: 'app-gear-create',
   templateUrl: './gear-create.component.html',
   styleUrls: ['./gear-create.component.css']
 })
-export class GearCreateComponent implements OnInit {
+export class GearCreateComponent {
 
-  constructor() { }
+  constructor(private gearService: GearService,
+              private router: Router) { }
 
-  ngOnInit() {
+  submit(gear: Gear) {
+    this.gearService.create_gear(gear).subscribe(() => {
+      this.router.navigate(['gear']);
+    });
   }
-
 }

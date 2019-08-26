@@ -1,1 +1,76 @@
-<p>gear-form works!</p>
+<p>{{gearForm.value | json}}</p>
+<form [formGroup]="gearForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col">
+      <label for="name">Name</label>
+      <div class="input-group">
+        <input type="text" class="form-control name-input"
+        formControlName="name"
+        placeholder="Nike"
+        [ngClass]="{'is-invalid': name.invalid && name.touched}">
+      </div>
+      <div class="form-errors" *ngIf="name.invalid && name.touched">
+        <small>
+          <div *ngIf="name.errors.required">This field is required</div>
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+      <div class="col-lg col-sm-6 col-xs-12">
+        <label for="start_distance">Start Distance</label>
+        <div class="input-group">
+          <input type="number" class="form-control dist-input"
+          formControlName="start_distance"
+          placeholder="0.0"
+          [ngClass]="{'is-invalid': start_distance.invalid && start_distance.touched}">
+          <select class="form-control unit-input"
+          formControlName="start_units"
+          [ngClass]="{'is-invalid': start_units.invalid && start_units.touched}">
+            <option value="mi">mi</option>
+            <option value="km">km</option>
+          </select>
+        </div>
+        <div class="form-errors" *ngIf="start_distance.invalid && start_distance.touched">
+          <small>
+            <div *ngIf="start_distance.errors.required">This field is required</div>
+            <div *ngIf="start_distance.errors.min">This field must be at least zero</div>
+          </small>
+        </div>
+      </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <label for="date_added">Added On</label>
+      <div class="input-group">
+        <input type="date" class="form-control date-input"
+        formControlName="date_added"
+        [ngClass]="{'is-invalid': date_added.invalid && date_added.touched}">
+      </div>
+      <div class="form-errors" *ngIf="date_added.invalid && date_added.touched">
+        <small>
+          <div *ngIf="date_added.errors.required">This field is required</div>
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+      <div class="col">
+        <label for="date_retired">Retired On</label>
+        <div class="input-group">
+          <input type="date" class="form-control date-input"
+          formControlName="date_retired"
+          [ngClass]="{'is-invalid': date_retired.invalid && date_retired.touched}">
+        </div>
+      </div>
+    </div>
+
+  <div class="form-row">
+    <div class="col mt-2">
+      <button [disabled]="!gearForm.valid" class="btn btn-outline-primary" type="submit">Save</button>
+    </div>
+  </div>
+</form>
