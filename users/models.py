@@ -28,7 +28,7 @@ class Profile(models.Model):
     def get_week_miles(self):
         today = timezone.make_aware(timezone.datetime.combine(
             timezone.now().date(),
-            datetime.time(0, 0)), timezone.get_default_timezone())    
+            datetime.time(0, 0)), timezone.get_default_timezone())
         week_start = today - timezone.timedelta(days=today.weekday())
         week_end = week_start + timezone.timedelta(days=7)
         miles = self.user.run_set.filter(
