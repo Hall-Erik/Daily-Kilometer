@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { AlertService } from '../services/alert.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 
@@ -11,7 +13,9 @@ import { User } from '../models/user';
 export class HeaderComponent implements OnInit {
   user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private alertService: AlertService,
+              private router: Router) { }
 
   ngOnInit() {
     this.user = this.userService.user.getValue();
@@ -21,5 +25,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe();
+    this.router.navigate(['']);
+    this.alertService.success("Log out successful.");
   }
 }

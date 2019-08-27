@@ -45,9 +45,9 @@ export class RegisterComponent {
       this.password1.value, this.password2.value)
       .subscribe(() => {
         this.router.navigate(['login']);
-        // alertservice here
+        this.alertService.success('Account created. You can now log in.');
       }, (err) => {
-        // alertservice here
+        this.alertService.error("Coudn't create account. Please check your form and try again.");
         if(err.error.username) {
           this.username_err = err.error.username;
           this.username.setErrors({'api': true});

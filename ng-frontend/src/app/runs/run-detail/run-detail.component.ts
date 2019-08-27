@@ -5,6 +5,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../../models/user';
 import { Run } from 'src/app/models/run';
 
+import { AlertService } from '../../services/alert.service';
 import { UserService } from '../../services/user.service';
 import { RunService } from '../../services/run.service';
 
@@ -23,7 +24,8 @@ export class RunDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private runService: RunService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     let run_id = this.route.snapshot.paramMap.get('id');
@@ -38,6 +40,7 @@ export class RunDetailComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.runService.delete_run(+this.run.pk).subscribe(() => {
         this.router.navigate(['index']);
+        this.alertService.success("Run deleted.");
       });
     }
   }

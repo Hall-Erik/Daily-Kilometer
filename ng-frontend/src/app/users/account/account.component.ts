@@ -46,10 +46,10 @@ export class AccountComponent implements OnInit {
     this.userService.change_password(this.old_password.value,
       this.new_password1.value, this.new_password2.value)
       .subscribe(() => {
-        // this.alertService.success('Password changed.');
+        this.alertService.success('Password changed.');
         this.pwForm.reset();
       }, (err) => {
-        console.log(err.error);
+        this.alertService.error("Couldn't change password. Check your form and try again.");
         if (err.error.old_password) {
           this.old_pw_err = err.error.old_password;
           this.old_password.setErrors({"api": true});

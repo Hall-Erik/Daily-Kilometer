@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { AlertService } from '../../services/alert.service';
 import { GearService } from '../../services/gear.service';
 
 import { Gear } from '../../models/gear';
@@ -15,7 +16,8 @@ export class GearEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private gearService: GearService) { }
+              private gearService: GearService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -26,6 +28,7 @@ export class GearEditComponent implements OnInit {
     gear.pk = this.gear.pk;
     this.gearService.update_gear(gear).subscribe(() => {
       this.router.navigate(['gear']);
+      this.alertService.success("Shoe updated.");
     });
   }
 }

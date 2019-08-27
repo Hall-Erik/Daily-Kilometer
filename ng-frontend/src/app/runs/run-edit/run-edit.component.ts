@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { Run } from 'src/app/models/run';
 
+import { AlertService } from '../../services/alert.service';
 import { UserService } from '../../services/user.service';
 import { RunService } from '../../services/run.service';
 
@@ -19,7 +20,8 @@ export class RunEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userService: UserService,
-              private runService: RunService) { }
+              private runService: RunService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.userService.user.subscribe(user => this.user = user);
@@ -33,6 +35,7 @@ export class RunEditComponent implements OnInit {
     this.runService.update_run(run).subscribe(() => {
       this.router.navigate(['index']);
       this.userService.get_user().subscribe();
+      this.alertService.success("Run updated.");
     })
   }
 }

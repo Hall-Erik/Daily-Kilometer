@@ -51,7 +51,7 @@ export class ResetPasswordComponent implements OnInit {
     this.userService.reset_password(this.token.value, this.password1.value)
       .subscribe(() => {
         this.router.navigate(['login']);
-        //alert service here
+        this.alertService.success('Password changed.');
       });
   }
 }

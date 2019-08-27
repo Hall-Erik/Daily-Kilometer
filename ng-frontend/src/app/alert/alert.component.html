@@ -1,1 +1,5 @@
-<p>alert works!</p>
+<div class="col-10 offset-1">
+  <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}">
+    {{alert.message}}
+  </div>
+</div>

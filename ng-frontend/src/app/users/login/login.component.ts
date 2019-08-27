@@ -29,9 +29,9 @@ export class LoginComponent {
     this.userService.login(this.username.value, this.password.value)
       .subscribe(() => {
         this.router.navigate(['']);
-        
+        this.alertService.success('Log in successful.');
       }, () => {
-        
+        this.alertService.error("Couldn't log in with that username/password.");
       });
   }
 }

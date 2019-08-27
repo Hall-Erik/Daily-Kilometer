@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
+import { AlertService } from '../../services/alert.service';
 import { RunService } from '../../services/run.service';
 import { UserService } from '../../services/user.service';
 import { Run } from '../../models/run';
@@ -16,7 +17,8 @@ export class RunListComponent implements OnInit {
   user: User = this.userService.user.getValue();
 
   constructor(private runService: RunService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.runService.get_runs().subscribe(runs => this.runs = runs);
@@ -33,6 +35,7 @@ export class RunListComponent implements OnInit {
   submit(run: Run) {
     this.runService.create_run(run).subscribe(() => {
       this.runService.get_runs().subscribe(runs => this.runs = runs);
+      this.alertService.success("Run created.");
     });
   }
 
@@ -41,6 +44,7 @@ export class RunListComponent implements OnInit {
       this.runService.delete_run(run.pk).subscribe(() => {
         this.runService.get_runs().subscribe(runs => this.runs = runs);
         this.userService.get_user().subscribe();
+        this.alertService.success("Run deleted.");
       });
     }
   }
