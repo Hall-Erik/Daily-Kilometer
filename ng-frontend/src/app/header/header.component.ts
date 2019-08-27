@@ -16,10 +16,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.user.getValue();
     this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
   }
 
   logout() {
     this.userService.logout().subscribe();
   }
-
 }

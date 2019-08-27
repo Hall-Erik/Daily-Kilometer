@@ -21,6 +21,7 @@ export class RunListComponent implements OnInit {
   ngOnInit() {
     this.runService.get_runs().subscribe(runs => this.runs = runs);
     this.userService.user.subscribe(user => this.user = user);
+    this.userService.get_user().subscribe();
     this.mobile = (window.screen.width === 360) ? true : false;
   }
 
