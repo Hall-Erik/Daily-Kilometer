@@ -19,3 +19,8 @@ body {
 .form-errors {
     color: red;
 }
+
+.is-invalid {
+    background-image: none !important;
+    padding-right: .75rem !important;
+}
