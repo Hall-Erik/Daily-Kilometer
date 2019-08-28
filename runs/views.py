@@ -1,7 +1,12 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.pagination import PageNumberPagination
 from .models import Run
 from .serializers import RunSerializer, RunCreateSerializer, GearSerializer
 from .permissions import RunPermissions, GearPermissions
+
+
+class RunPagination(PageNumberPagination):
+    page_size = 10
 
 
 class RunViewSet(ModelViewSet):
@@ -9,6 +14,7 @@ class RunViewSet(ModelViewSet):
     serializer_class = RunSerializer
     permission_classes = (RunPermissions,)
     lookup_field = 'id'
+    pagination_class = RunPagination
 
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:

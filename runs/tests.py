@@ -54,7 +54,7 @@ class RunViewSetTests(TestCase):
         url = reverse('runs:run-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.data['results'], serializer.data)
 
     def test_user_can_list_runs(self):
         '''Logged in users can GET a list of runs'''
@@ -71,7 +71,7 @@ class RunViewSetTests(TestCase):
         url = reverse('runs:run-list')
         response = client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.data['results'], serializer.data)
 
     def test_anon_cannot_post_runs(self):
         '''Anonymous user cannot POST a run'''

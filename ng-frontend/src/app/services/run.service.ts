@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Run } from '../models/run';
+import { Run, RunList } from '../models/run';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,11 @@ export class RunService {
     });
   }
 
-  public get_runs(): Observable<Run[]> {
-    return this.http.get<Run[]>('/api/runs/');
+  public get_runs(url?: string): Observable<RunList> {
+    if (url) {
+      return this.http.get<RunList>(url);
+    }
+    return this.http.get<RunList>('/api/runs/');
   }
 
   public get_run(id: number): Observable<Run> {

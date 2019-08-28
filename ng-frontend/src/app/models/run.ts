@@ -1,6 +1,15 @@
 import { Gear } from './gear';
 import { User } from './user';
 
+export class RunList {
+    results: Run[];
+    next: string;
+
+    public constructor(init?: Partial<RunList>) {
+        Object.assign(this, init);
+    }
+}
+
 export class Run {
     pk: number;
     run_date: string;
