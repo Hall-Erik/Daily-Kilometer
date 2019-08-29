@@ -30,13 +30,9 @@ export class GearService {
   }
 
   update_gear(gear: Gear): Observable<any> {
-    return this.http.patch(`/api/gear/${gear.pk}/`, {
-      name: gear.name,
-      start_distance: gear.start_distance,
-      start_units: gear.start_units,
-      date_added: gear.date_added,
-      date_retired: gear.date_retired
-    });
+    let pk = gear.pk;
+    delete gear.pk;
+    return this.http.patch(`/api/gear/${pk}/`, gear);
   }
 
   delete_gear(id: number): Observable<any> {

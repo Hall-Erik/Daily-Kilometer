@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { AlertService } from '../../services/alert.service';
 import { GearService } from '../../services/gear.service';
@@ -11,24 +12,21 @@ import { Gear } from '../../models/gear';
   templateUrl: './gear-edit.component.html',
   styleUrls: ['./gear-edit.component.css']
 })
-export class GearEditComponent implements OnInit {
-  gear: Gear;
+export class GearEditComponent {
+  faTimes = faTimes;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private gearService: GearService,
-              private alertService: AlertService) { }
+  @Input() gear: Gear;
 
-  ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
-    this.gearService.get(+id).subscribe(gear => this.gear = gear);
-  }
+  constructor(private gearService: GearService,
+              private alertService: AlertService,
+              public activeModal: NgbActiveModal) { }
 
   submit(gear: Gear) {
     gear.pk = this.gear.pk;
     this.gearService.update_gear(gear).subscribe(() => {
-      this.router.navigate(['gear']);
+      this.alertService.clear();
       this.alertService.success("Shoe updated.");
+      this.activeModal.close();
     });
   }
 }

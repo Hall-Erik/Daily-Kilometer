@@ -6,6 +6,7 @@
         <input type="text" class="form-control name-input"
         formControlName="name"
         placeholder="Nike"
+        autofocus
         [ngClass]="{'is-invalid': name.invalid && name.touched}">
       </div>
       <div class="form-errors" *ngIf="name.invalid && name.touched">

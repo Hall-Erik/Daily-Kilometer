@@ -1,6 +1,6 @@
 <div *ngIf="gear" class="col-sm-8 offset-sm-2 content-section">
   <h2>Your Running Shoes</h2>
-  <button class="btn btn-outline-success" routerLink="/gear/new">Add New Shoes</button>
+  <button class="btn btn-outline-success" (click)="add_gear()">Add New Shoes</button>
   
   <table class="table table-striped mt-3">
     <thead>
@@ -17,9 +17,9 @@
         <td>{{g.date_added | date}}</td>
         <td>{{g.total_miles}}</td>
         <td class="text-right">
-          <a class="btn btn-sm btn-outline-info" routerLink="/gear/{{g.pk}}/edit">
+          <button class="btn btn-sm btn-outline-info" (click)="edit_gear(g)">
             <fa-icon [icon]="faEdit"></fa-icon>
-          </a>
+          </button>
           <button class="btn btn-sm btn-outline-danger" (click)="delete(g.pk)">
             <fa-icon [icon]="faTrash"></fa-icon>
           </button>

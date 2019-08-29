@@ -1,4 +1,10 @@
-<div class="col-sm-8 offset-sm-2 content-section">
-  <legend>Add New Shoes</legend>
+<div class="modal-header">
+  <h4 class="modal-title">Add New Shoes</h4>
+  <button type="button" class="close" aria-label="Close"
+  (click)="activeModal.dismiss('Cross click')">
+    <fa-icon [icon]="faTimes"></fa-icon>
+  </button>
+</div>
+<div class="modal-body">
   <app-gear-form (gearSubmit)="submit($event)"></app-gear-form>
 </div>

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -60,6 +61,7 @@ import { GearFormComponent } from './gear/gear-form/gear-form.component';
     FontAwesomeModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NgbModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',
@@ -71,11 +73,16 @@ import { GearFormComponent } from './gear/gear-form/gear-form.component';
     GearService,
     RunService,
     UserService,
+    NgbActiveModal,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
     }
+  ],
+  entryComponents: [
+    GearCreateComponent,
+    GearEditComponent
   ],
   bootstrap: [AppComponent]
 })
