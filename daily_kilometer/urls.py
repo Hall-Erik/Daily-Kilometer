@@ -23,6 +23,6 @@ urlpatterns = [
     path('api/', include('runs.urls')),
     path('api/auth/', include('users.urls')),
     url(r'^.*',
-        TemplateView.as_view(template_name="runs/index.html"),
+        TemplateView.as_view(template_name="ng/index.html"),
         name="home")
 ]

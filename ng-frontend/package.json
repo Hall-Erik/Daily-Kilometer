@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxyConfig=proxy.conf.json",
-    "build": "ng build --prod --output-path ../runs/static/runs",
-    "postbuild": "python postbuild.py",
+    "build": "ng build --prod --output-path ../runs/static/ng",
+    "postbuild": "python ng2django.py ../runs/static/ng/index.html ../runs/templates/ng/index.html -s ng",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
