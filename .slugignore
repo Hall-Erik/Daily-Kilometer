@@ -1,3 +1,9 @@
 README.md
 
 ng-frontend/
+Dockerfile
+.dockerignore
+docker-compose.yml
+entrypoint.sh
+nginx/
+daily_kilometer/docker_settings.py
