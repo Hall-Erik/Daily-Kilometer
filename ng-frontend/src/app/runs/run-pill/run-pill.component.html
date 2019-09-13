@@ -21,15 +21,15 @@
     <table style="width:70%" class="table table-sm table-borderless">
       <tbody>
         <tr>
-          <td>
+          <td width="30%">
             <small>Distance</small>
             <div>{{run.distance}} {{run.units}}</div>
           </td>
-          <td *ngIf="run.duration">
+          <td width="30%" *ngIf="run.duration">
             <small>Time</small>
             <div>{{run.get_duration}}</div>
           </td>
-          <td *ngIf="run.duration">
+          <td width="30%" *ngIf="run.duration">
             <small>Pace</small>
             <div>{{run.get_pace}}</div>
           </td>
