@@ -39,6 +39,12 @@ Go to `http://localhost:1337/` in your browser.
 
 Run `python manage.py test` to execute the tests.
 
+## Building the Frontend
+
+The build process uses a Python script called `ng2django`.  So, be sure to use an environment where you have installed dependencies with `pip install -r requirements.txt`.
+
+Then you can `cd` into the `ng-frontend` directory.  Run `npm run build`.
+
 ## What I learned
 
 * Django for web development
