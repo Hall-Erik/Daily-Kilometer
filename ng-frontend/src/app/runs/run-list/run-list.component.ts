@@ -44,7 +44,6 @@ export class RunListComponent implements OnInit {
   onWindowScroll() {
     let pos = Math.ceil(window.innerHeight + window.scrollY);
     let max = document.documentElement.scrollHeight;
-    console.log(pos, max);
     if (pos >= max && this.next) {
       let next = this.next;
       this.next = '';
