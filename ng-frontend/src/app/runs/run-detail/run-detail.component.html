@@ -40,7 +40,7 @@
       </div>
       <div class="row" *ngIf="run.run_type">
         <div class="col">
-          Type: {{run.run_type}}
+          Type: <fa-icon [icon]="run_type"></fa-icon> {{run.run_type}}
         </div>
       </div>
       <div class="row" *ngIf="run.gear">

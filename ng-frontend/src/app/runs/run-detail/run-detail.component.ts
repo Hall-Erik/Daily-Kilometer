@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faRoad, faMountain, faStopwatch, faDungeon, faFlagCheckered } from '@fortawesome/free-solid-svg-icons';
 
 import { User } from '../../models/user';
 import { Run } from 'src/app/models/run';
@@ -17,6 +18,12 @@ import { RunService } from '../../services/run.service';
 export class RunDetailComponent implements OnInit {
   faTrash = faTrash
   faEdit = faEdit
+  faPaw = faPaw;
+  faRoad = faRoad;
+  faMountain = faMountain;
+  faStopwatch = faStopwatch;
+  faDungeon = faDungeon;
+  faFlagCheckered = faFlagCheckered;
   
   run: Run;
   user: User = this.userService.user.getValue();
@@ -34,6 +41,24 @@ export class RunDetailComponent implements OnInit {
     });
     this.userService.user.subscribe(user => this.user = user);
     this.userService.get_user().subscribe();
+  }
+
+  get run_type() {
+    switch (this.run.run_type) {
+      case 'Canicross':
+        return faPaw;
+      case 'Road run':
+        return faRoad;
+      case 'Long run':
+        return faStopwatch;
+      case 'Trail run':
+        return faMountain;
+      case 'Race':
+        return faFlagCheckered;
+      case 'Treadmill':
+        return faDungeon;
+    }
+    return '';
   }
 
   delete() {
