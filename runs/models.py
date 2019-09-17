@@ -53,7 +53,9 @@ class Gear(models.Model):
 class Run(models.Model):
     _unit_choices = (('mi', 'mi'), ('km', 'km'))
     _run_choices = (
+        ('Canicross', 'Canicross'),
         ('Road run', 'Road run'),
+        ('Long run', 'Long run'),
         ('Trail run', 'Trail run'),
         ('Race', 'Race'),
         ('Treadmill', 'Treadmill'))
