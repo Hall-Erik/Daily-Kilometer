@@ -24,7 +24,6 @@ export class RunListComponent implements OnInit {
   ngOnInit() {
     this.get_runs();
     this.userService.user.subscribe(user => this.user = user);
-    this.userService.get_user().subscribe();
     this.mobile = (window.screen.width === 360) ? true : false;
   }
 
@@ -38,6 +37,7 @@ export class RunListComponent implements OnInit {
       }
       this.next = runList.next;
     });
+    this.userService.get_user().subscribe();
   }
 
   @HostListener('window:scroll')
@@ -67,7 +67,6 @@ export class RunListComponent implements OnInit {
     if (confirm('Are you sure you want to delete?')) {
       this.runService.delete_run(run.pk).subscribe(() => {
         this.get_runs();
-        this.userService.get_user().subscribe();
         this.alertService.success("Run deleted.");
       });
     }
