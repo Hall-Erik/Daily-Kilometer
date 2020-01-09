@@ -1,44 +1,22 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-nav">
-  <div class="container">
-    <a class="navbar-brand mr-4" routerLink="">Daily km</a>
-    <button class="navbar-toggler" type="button" 
-        data-toggle="collapse" data-target="#navbarToggle" 
-        aria-controls="navbarToggle" aria-expanded="false" 
-        aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarToggle">
-      <!-- navbar left side -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a id='runs-home' class="nav-link" routerLink="">Home</a>
-        </li>
-      </ul>
-      <!-- navbar right side -->
-      <ul class="navbar-nav ml-auto">
-        <li *ngIf="user" class="nav-item dropdown">
-          <a id="user-menu" class="nav-link dropdown-toggle" href="#"
-              role="button" id="userDropdownBtn" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-            {{user.username}}
-          </a>
-          <div class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="userDropdownBtn">
-            <a id="profile" class="dropdown-item"
-              routerLink="/account">Account</a>
-            <a id="runs-gear-list" class="dropdown-item" 
-                routerLink="/gear">Gear</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="logout()">Logout</a>
-          </div>
-        </li>
-        <li *ngIf="!user" class="nav-item">
-          <a id="register" class="nav-link" routerLink="/register">Register</a>
-        </li>
-        <li *ngIf="!user" class="nav-item">
-          <a id="login" class="nav-link" routerLink="/login">Login</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<mat-toolbar class="mat-elevation-z2" color="primary">
+  <mat-toolbar-row>
+    <span><a class="nostyle" routerLink="">Daily km</a></span>
+    <span><button mat-button routerLink="">Home</button></span>
+    <span class="spacer"></span>
+    <span *ngIf="user">
+      <button mat-button [matMenuTriggerFor]="menu">
+        {{user.username}}<mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/account">Account</button>
+        <button mat-menu-item routerLink="/gear">Gear</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </span>
+    <span *ngIf="!user">
+      <button mat-button routerLink="/register">Register</button>
+      <button mat-button routerLink="/login">Login</button>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
