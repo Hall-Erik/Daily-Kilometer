@@ -33,6 +33,9 @@ import { GearListComponent } from './gear/gear-list/gear-list.component';
 import { GearCreateComponent } from './gear/gear-create/gear-create.component';
 import { GearEditComponent } from './gear/gear-edit/gear-edit.component';
 import { GearFormComponent } from './gear/gear-form/gear-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,7 @@ import { GearFormComponent } from './gear/gear-form/gear-form.component';
     GearFormComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     FontAwesomeModule,
     AppRoutingModule,
@@ -66,7 +70,8 @@ import { GearFormComponent } from './gear/gear-form/gear-form.component';
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',
       headerName: 'X-CSRFToken'
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     AlertService,
