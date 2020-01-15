@@ -1,16 +1,22 @@
-<div *ngIf="user" class="content-section">
-  <div class="sidebar-user">
-    <img class="ml-auto mr-auto" src="{{user.profile.gravatar_url}}" alt="user profile image.">
-  </div>
-  <ul class="list-group list-group-flush text-muted">
-    <li class="list-group-item">
-      Miles this week: {{user.profile.week_miles}}
-    </li>
-    <li class="list-group-item">
-      Total miles: {{user.profile.total_miles}}
-    </li>
-    <li *ngIf="user.profile.latest_shoe_miles" class="list-group-item">
-      {{user.gear[0].name}} miles: {{user.profile.latest_shoe_miles}}
-    </li>
-  </ul>
-</div>
+<mat-card *ngIf="user">
+  <mat-card-header>
+    <img mat-card-avatar src="{{user.profile.gravatar_url}}" alt="user profile image.">
+    <mat-card-title>{{user.username}}</mat-card-title>
+    <mat-card-subtitle>Stats</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        Miles this week: {{user.profile.week_miles}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        Total miles: {{user.profile.total_miles}}
+      </mat-list-item>
+      <mat-divider *ngIf="user.profile.latest_shoe_miles"></mat-divider>
+      <mat-list-item *ngIf="user.profile.latest_shoe_miles">
+        {{user.gear[0].name}} miles: {{user.profile.latest_shoe_miles}}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
