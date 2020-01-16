@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-sm-8"
+<div fxLayout="row">
+  <div fxFlex="70" fxFlex.xs
     [class.ml-3]="!mobile && user"
     [class.offset-sm-2]="!mobile && !user">
     <div *ngIf="user" class="content-section">
@@ -10,13 +10,15 @@
       Please <a routerLink="/login">log in</a> to start sharing runs
     </div>
 
-    <div *ngFor="let run of runs" class="content-section">
-      <app-run-pill [run]="run"
+    <div fxLayout="column" fxLayoutGap="8px">
+      <app-run-pill *ngFor="let run of runs" [run]="run"
       (runDelete)="delete($event)"></app-run-pill>
     </div>
+
     <div *ngIf="next" class="loader"></div>
   </div>
-  <div *ngIf="!mobile" class="col mr-3">
+  
+  <div fxFlex *ngIf="!mobile" class="col mr-3">
     <app-sidebar></app-sidebar>
   </div>
 </div>

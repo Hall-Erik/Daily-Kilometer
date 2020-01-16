@@ -6,6 +6,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -66,6 +67,7 @@ import { MaterialModule } from './material/material.module';
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule,
+    FlexLayoutModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',

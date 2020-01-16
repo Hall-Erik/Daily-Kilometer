@@ -1,24 +1,19 @@
-<div class="media">
-  <div class="mr-3">
-    <img class="align-self-start" src="{{run.user.gravatar_url}}" alt="profile image.">
-    <br>
-    {{run.user.username}}
-  </div>
-  <div class="media-body">
-    <h5 class="mt-0 mb-0 pb-0 d-flex">
-      <a routerLink="/runs/{{run.pk}}">
-        {{run.run_date | date }}
-      </a>
-      <div class="ml-auto" *ngIf="user && run.user.pk == user.pk">
-        <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">
-          <fa-icon [icon]="faEdit"></fa-icon>
-        </a>
-        <button type="button" class="btn btn-outline-danger" (click)="onDelete()">
-          <fa-icon [icon]="faTrash"></fa-icon>
-        </button>
-      </div>
-    </h5>
-    <div class="mt-0" *ngIf="run.run_type"><fa-icon [icon]="run_type"></fa-icon> {{run.run_type}}</div>
+<mat-card fxLayout="row" 
+fxLayoutAlign="start stretch"
+fxLayoutGap="5px"
+fxLayoutGap.xs="0">
+  <mat-card-title-group>
+    <mat-card-subtitle>
+      <img mat-card-sm-image src="{{run.user.gravatar_url}}" alt="profile image.">
+      <br>
+      {{run.user.username}}
+    </mat-card-subtitle>
+  </mat-card-title-group>
+  <mat-card-content fxFlex>
+    <mat-card-title>
+      <a routerLink="/runs/{{run.pk}}">{{run.run_date | date }}</a>
+    </mat-card-title>
+    <span *ngIf="run.run_type"><fa-icon [icon]="run_type"></fa-icon> {{run.run_type}}</span>
     <table style="width:70%" class="table table-sm table-borderless">
       <tbody>
         <tr>
@@ -37,8 +32,16 @@
         </tr>
       </tbody>
     </table>
-    <div class="row" *ngIf="run.description">
-      <div class="col">{{run.description}}</div>
+    <span *ngIf="run.description">{{run.description}}</span>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <div *ngIf="user && run.user.pk == user.pk">
+      <button mat-icon-button color="primary" title="Edit" aria-label="Edit run" routerLink="/runs/{{run.pk}}/edit">
+        <fa-icon [icon]="faEdit"></fa-icon>
+      </button>
+      <button type="button" mat-icon-button color="warn" title="Delete" aria-label="Delet run" (click)="onDelete()">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
     </div>
-  </div>
-</div>
+  </mat-card-actions>
+</mat-card>
