@@ -3,7 +3,7 @@
     [class.ml-3]="!mobile && user"
     [class.offset-sm-2]="!mobile && !user">
     <div *ngIf="user">
-      <app-run-form (runSubmit)="submit($event)"></app-run-form>
+      <app-run-form legend="Save a Run" (runSubmit)="submit($event)"></app-run-form>
     </div>
     <div *ngIf="!user" class="alert alert-secondary">
       Please <a routerLink="/login">log in</a> to start sharing runs

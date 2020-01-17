@@ -16,6 +16,8 @@ export class RunFormComponent implements OnInit {
 
   @Output() runSubmit = new EventEmitter<Run>();
 
+  @Input() legend: string;
+
   @Input() set run(initial: Run) {
     if (initial) {
       this.runForm.patchValue(initial);
