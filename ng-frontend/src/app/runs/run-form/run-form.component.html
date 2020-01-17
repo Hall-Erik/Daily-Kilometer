@@ -1,114 +1,111 @@
-<form *ngIf="user" [formGroup]="runForm" (ngSubmit)="onSubmit()">
-  <div class="form-row">
-    <div class="col-lg col-sm-6 col-xs-12">
-      <label for="distance">Distance</label>
-      <div class="input-group">
-        <input type="number" class="form-control dist-input"
-        formControlName="distance"
-        placeholder="0.0"
-        [ngClass]="{'is-invalid': distance.invalid && distance.touched}">
-        <select class="form-control unit-input"
-        formControlName="units"
-        [ngClass]="{'is-invalid': units.invalid && units.touched}">
-          <option value="mi">mi</option>
-          <option value="km">km</option>
-        </select>
-      </div>
-      <div class="form-errors" *ngIf="distance.invalid && distance.touched">
-        <small>
-          <div *ngIf="distance.errors.required">This field is required</div>
-        </small>
-      </div>
-    </div>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Save a Run</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="runForm" (ngSubmit)="onSubmit()">
+  <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutGap="10px">
+        <div>
+          <mat-form-field class="dist-input">
+            <mat-label>Distance</mat-label>
+            <input type="number" formControlName="distance"
+            matInput required placeholder="0.0">
+          </mat-form-field>
+          <mat-form-field class="unit-input">
+            <mat-select formControlName="units" class="unit-input">
+              <mat-option value="mi">mi</mat-option>
+              <mat-option value="km">km</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-    <div class="col-lg col-sm-6 col-xs-12">
-      <label for="hours">Time</label>
-      <div class="input-group">
-        <input type="number" class="form-control time-input"
-        formControlName="hours"
-        placeholder="0"
-        [ngClass]="{'is-invalid': hours.invalid && hours.touched}">
-        <input type="number" class="form-control time-input"
-        formControlName="minutes"
-        placeholder="0"
-        [ngClass]="{'is-invalid': minutes.invalid && minutes.touched}">
-        <input type="number" class="form-control time-input"
-        formControlName="seconds"
-        placeholder="0"
-        [ngClass]="{'is-invalid': seconds.invalid && seconds.touched}">
-      </div>
-      <div class="form-errors"
-      *ngIf="(hours.invalid && hours.touched)
-      || (minutes.invalid && minutes.touched)
-      || (seconds.invalid && seconds.touched)">
-        <small>
-          <div *ngIf="hours.errors.min">Hours must be at least zero</div>
-          <div *ngIf="minutes.errors.min">Minutes must be at least zero</div>
-          <div *ngIf="minutes.errors.max">Minutes must not be larger than 59</div>
-          <div *ngIf="seconds.errors.min">Seconds must be at least zero</div>
-          <div *ngIf="seconds.errors.max">Seconds must not be larger than 59</div>
-        </small>
-      </div>
-    </div>
-  
-    <div class="col-lg col-sm-6 col-xs-6">
-      <label for="date">Date</label>
-      <div class="input-group">
-        <input type="date" class="form-control date-input"
-        formControlName="date"
-        [ngClass]="{'is-invalid': date.invalid && date.touched}">
-      </div>
-      <div class="form-errors" *ngIf="date.invalid && date.touched">
-        <small>
-          <div *ngIf="date.errors.required">This field is required</div>
-        </small>
-      </div>
-    </div>
+        <div>
+          <mat-form-field class="time-input">
+            <mat-label>H</mat-label>
+            <input matInput type="number" class="time-input"
+            formControlName="hours"
+            placeholder="0">
+          </mat-form-field>
+          :
+          <mat-form-field class="time-input">
+            <mat-label>M</mat-label>
+            <input matInput type="number" class="time-input"
+            formControlName="minutes"
+            placeholder="0">
+          </mat-form-field>
+          :
+          <mat-form-field class="time-input">
+            <mat-label>S</mat-label>
+            <input matInput type="number" class="time-input"
+            formControlName="seconds"
+            placeholder="0">
+          </mat-form-field>
+          <span *ngIf="hours.invalid && hours.touched">
+            <mat-error *ngIf="hours.errors.min">
+              Hours must be positive.
+            </mat-error>
+          </span>
+          <span *ngIf="minutes.invalid && minutes.touched">
+            <mat-error *ngIf="minutes.errors.min">
+              Minutes must be positive.
+            </mat-error>
+            <mat-error *ngIf="minutes.errors.max">
+              Minutes must be less than 60.
+            </mat-error>
+          </span>
+          <span *ngIf="seconds.invalid && seconds.touched">
+            <mat-error *ngIf="seconds.errors.min">
+              Seconds must be positive.
+            </mat-error>
+            <mat-error *ngIf="seconds.errors.max">
+              Seconds must be less than 60.
+            </mat-error>
+          </span>
+        </div>
 
-    <div class="col-lg col-sm-6 col-xs-6">
-      <label for="gear">Gear</label>
-      <div class="input-group">
-        <select class="form-control gear-input"
-        formControlName="gear"
-        [ngClass]="{'is-invalid': gear.invalid && gear.touched}">
-          <option value="">----------</option>
-          <option *ngFor="let g of user.gear" value="{{g.pk}}">{{g.name}}</option>
-        </select>
-      </div>
-    </div>
+        <div>
+          <mat-form-field class="date-input">
+            <input matInput required [matDatepicker]="datePicker" placeholder="Date" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
 
-    <div class="col-lg col-sm-6 col-xs-6">
-      <label for="run_type">Run Type</label>
-      <div class="input-group">
-        <select class="form-control gear-input"
-        formControlName="run_type"
-        [ngClass]="{'is-invalid': run_type.invalid && run_type.touched}">
-          <option value="">----------</option>
-          <option value="Canicross">Canicross</option>
-          <option value="Road run">Road run</option>
-          <option value="Long run">Long run</option>
-          <option value="Trail run">Trail run</option>
-          <option value="Race">Race</option>
-          <option value="Treadmill">Treadmill</option>
-        </select>
-      </div>
-    </div>
-  </div>
+        <div>
+          <mat-form-field class="gear-input">
+            <mat-label>Gear</mat-label>
+            <mat-select formControlName="gear">
+              <mat-option value="">----------</mat-option>
+              <mat-option *ngFor="let g of user.gear" value="{{g.pk}}">{{g.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div class="form-row">
-    <div class="col">
-      <label for="description">Description</label>
-      <div class="input-group">
-        <input type="text" class="form-control"
-        formControlName="description"
-        [ngClass]="{'is-invalid': description.invalid && description.touched}">
-      </div>
-    </div>
-  </div>
+        <div>
+          <mat-form-field class="gear-input">
+            <mat-label>Run Type</mat-label>
+            <mat-select formControlName="run_type">
+              <mat-option value="">----------</mat-option>
+              <mat-option value="Canicross">Canicross</mat-option>
+              <mat-option value="Road run">Road run</mat-option>
+              <mat-option value="Long run">Long run</mat-option>
+              <mat-option value="Trail run">Trail run</mat-option>
+              <mat-option value="Race">Race</mat-option>
+              <mat-option value="Treadmill">Treadmill</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-  <div class="form-row">
-    <div class="col mt-2">
-      <button [disabled]="!runForm.valid" class="btn btn-outline-primary" type="submit">Save</button>
-    </div>
-  </div>
-</form>
+        <div fxFlex="grow">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>      
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" [disabled]="!runForm.valid" type="submit">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

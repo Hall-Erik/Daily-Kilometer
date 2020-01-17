@@ -2,15 +2,14 @@
   <div fxFlex="70" fxFlex.xs
     [class.ml-3]="!mobile && user"
     [class.offset-sm-2]="!mobile && !user">
-    <div *ngIf="user" class="content-section">
-      <legend class="mb-4">Save a run</legend>
+    <div *ngIf="user">
       <app-run-form (runSubmit)="submit($event)"></app-run-form>
     </div>
     <div *ngIf="!user" class="alert alert-secondary">
       Please <a routerLink="/login">log in</a> to start sharing runs
     </div>
 
-    <div fxLayout="column" fxLayoutGap="8px">
+    <div class="list" fxLayout="column" fxLayoutGap="8px">
       <app-run-pill *ngFor="let run of runs" [run]="run"
       (runDelete)="delete($event)"></app-run-pill>
     </div>

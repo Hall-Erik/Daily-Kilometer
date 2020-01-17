@@ -7,6 +7,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatCardModule } from '@angular/material/card'; 
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatInputModule } from '@angular/material/input'; 
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 const material = [
   MatToolbarModule,
@@ -15,7 +20,12 @@ const material = [
   MatDividerModule,
   MatIconModule,
   MatCardModule,
-  MatListModule
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatMomentDateModule
 ];
 
 @NgModule({
