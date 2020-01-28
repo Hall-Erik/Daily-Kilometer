@@ -20,6 +20,7 @@ export class GearListComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   
+  dispColumns: string[] = ["name", "date_added", "total_miles", "buttons"]
   gear: Gear[];
 
   constructor(private gearService: GearService,

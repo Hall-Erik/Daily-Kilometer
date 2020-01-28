@@ -1,30 +1,43 @@
-<div *ngIf="gear" class="col-sm-8 offset-sm-2 content-section">
-  <h2>Your Running Shoes</h2>
-  <button class="btn btn-outline-success" (click)="add_gear()">Add New Shoes</button>
-  
-  <table class="table table-striped mt-3">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Added</th>
-        <th scope="col">Miles</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let g of gear" [ngClass]="{'text-muted': g.date_retired}">
-        <td>{{g.name}}</td>
-        <td>{{g.date_added | date}}</td>
-        <td>{{g.total_miles}}</td>
-        <td class="text-right">
-          <button class="btn btn-sm btn-outline-info" (click)="edit_gear(g)">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </button>
-          <button class="btn btn-sm btn-outline-danger" (click)="delete(g.pk)">
-            <fa-icon [icon]="faTrash"></fa-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="col-sm-8 offset-sm-2">
+  <mat-card *ngIf="gear">
+    <mat-card-header>
+      <mat-card-title>Your Running Shoes</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="add_gear()">Add New Shoes</button>
+    </mat-card-actions>
+    <mat-card-content>
+      <table mat-table [dataSource]="gear">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td [class.text-muted]="g.date_retired" mat-cell *matCellDef="let g">{{g.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_added">
+          <th mat-header-cell *matHeaderCellDef>Added</th>
+          <td [class.text-muted]="g.date_retired" mat-cell *matCellDef="let g">{{g.date_added | date}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total_miles">
+          <th mat-header-cell *matHeaderCellDef>Miles</th>
+          <td [class.text-muted]="g.date_retired" mat-cell *matCellDef="let g">{{g.total_miles}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="buttons">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let g" align="right">
+            <button mat-icon-button color="primary" (click)="edit_gear(g)">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="delete(g.pk)">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="dispColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: dispColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>
