@@ -1,56 +1,43 @@
-<div *ngIf="run" class="content-section col-sm-8 offset-sm-2">
-  <div *ngIf="run" class="media">
-    <div class="mr-2">
-      <a class="no-hover" href="#">
-        <img class="img-thumbnail"
+<div class='col-sm-8 offset-sm-2'>
+  <mat-card>
+    <mat-card-header>
+      <div style="float: left;">
+        <a class="no-hover" href="#">
+          <img class="img-thumbnail"
           [src]="run.user.gravatar_url"
-          alt="User profile image.">
-      </a>
-      <br>
-      <a href="#">
-        {{run.user.username}}
-      </a>
-    </div>
-    <div class="media-body">
-      <h1 class="mt-0 mb-0 pb-0 d-flex">          
-        {{run.run_date | date}}      
-        <div class="ml-auto" *ngIf='user && user.pk == run.user.pk'>
-          <a class="btn btn-outline-info" routerLink="/runs/{{run.pk}}/edit">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </a>
-          <button class="btn btn-outline-danger" (click)="delete()">
-            <fa-icon [icon]="faTrash"></fa-icon>
-          </button>
-        </div>
-      </h1>
-      <div class="row">
-        <div class="col">
-          Distance: {{run.distance}} {{run.units}}
-        </div>
+          alt="user profile image.">
+        </a>
+        <br>
+        <a href="#">
+          {{user.username}}
+        </a>
       </div>
-      <div class="row" *ngIf="run.duration">
-        <div class="col">
-          Time: {{run.get_duration}}
-        </div>
-      </div>
-      <div class="row" *ngIf="run.duration">
-        <div class="col">
-          Pace: {{run.get_pace}} / {{run.units}}
-        </div>
-      </div>
-      <div class="row" *ngIf="run.run_type">
-        <div class="col">
+
+      <div>
+        <mat-card-title>{{run.run_date | date}}</mat-card-title>
+        <div>Distance: {{run.distance}} {{run.units}}</div>
+        <span *ngIf="run.duration">
+          <div>Time: {{run.get_duration}}</div>
+          <div>Pace: {{run.get_pace}} / {{run.units}}</div>
+        </span>
+        <div *ngIf="run.run_type">
           Type: <fa-icon [icon]="run_type"></fa-icon> {{run.run_type}}
         </div>
+        <div *ngIf="run.gear">Shoe: {{run.gear.name}}</div>
       </div>
-      <div class="row" *ngIf="run.gear">
-        <div class="col">
-          Shoe: {{run.gear.name}}
-        </div>
+
+      <div *ngIf="user && user.pk == run.user.pk" class="ml-auto">
+        <a mat-icon-button color="primary" routerLink="/runs/{{run.pk}}/edit">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </a>
+        <button mat-icon-button color="warn" (click)="delete()">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
       </div>
-    </div>
-  </div>
-  <div class="row" *ngIf="run.description">
-    <div class="col">{{run.description}}</div>
-  </div>
+    </mat-card-header>
+    <mat-card-content *ngIf="run.description">
+      <br>
+      <div>{{run.description}}</div>
+    </mat-card-content>
+  </mat-card>
 </div>
