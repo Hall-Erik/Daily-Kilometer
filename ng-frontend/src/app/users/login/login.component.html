@@ -1,35 +1,30 @@
-<div class="container mb-3">
-  <div class="row">
-    <div class="col-sm-8 offset-sm-2 content-section">
-      <h2>Login</h2>
+<div class="col-sm-8 offset-sm-2">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" formControlName="username" class="form-control"
-          [ngClass]="{'is-invalid': username.invalid && username.touched}">
-          <div class="form-errors"
-          *ngIf="username.invalid && username.touched">
-            <small>
-              <p *ngIf="username.errors.required">This field is required.</p>
-            </small>
-          </div>
+        <div>
+          <mat-form-field>
+            <input matInput formControlName="username"
+            placeholder="Username" type="text" required>
+          </mat-form-field>
         </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" formControlName="password"
-          [ngClass]="{'is-invalid': password.invalid && password.touched}">
-          <div class="form-errors"
-          *ngIf="password.invalid && password.touched">
-            <small>
-              <p *ngIf="password.errors.required">This field is required.</p>
-            </small>
-          </div>
+        <div>
+          <mat-form-field>
+            <input matInput formControlName="password"
+            placeholder="Password" type="password" required>
+          </mat-form-field>
         </div>
 
-        <button [disabled]="loginForm.invalid" class="btn btn-outline-info" type="submit">Login</button>
+        <div>
+          <button mat-stroked-button color="primary"
+          [disabled]="loginForm.invalid" type="submit">Login</button>
+        </div>
+        <small>Forgot your password? Click <a routerLink="/forgot-password">here</a> to request a new one.</small>
       </form>
-      <small>Forgot your password? Click <a routerLink="/forgot-password">here</a> to request a new one.</small>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>
